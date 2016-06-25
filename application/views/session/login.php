@@ -10,7 +10,15 @@
                 <label><?= lang('password'); ?></label>
                 <input type="password" class="form-control" name="password" placeholder="<?= lang('password'); ?>">
             </div>
-            <input type="submit" class="btn btn-default" name="login" value="<?= lang('login'); ?>">
+            <div>
+            <?php
+                if (!empty($authUrl) && !empty($authUrlfb)) {
+                    echo '<a href="'.$authUrlfb.'"><img src="assets/images/fb_btn.png" style = "width: 50%; "></a>';
+                    echo '<a href="'.$authUrl.'"><img src="assets/images/gg_btn.png" style = "width: 50%; "></a></br>';
+                }
+            ?>
+            </div>
+            <input type="submit" class="btn btn-default" style="margin-top: 10px;" name="login" value="<?= lang('login'); ?>">
         </form>
     </div>  
 </div>
