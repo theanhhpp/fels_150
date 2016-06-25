@@ -36,28 +36,19 @@
                         <a href="#"><?= lang('contact'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/sessions/login"><?= lang('sign_in'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="index.php/sessions/sign_up"><?= lang('sign_up'); ?></a>
+                        <a href="index.php/sessions/logout"><?= lang('sign_out'); ?></a>
                     </li>
                 </ul>
             </nav>
             <h3 class="text-muted"><?= lang('name_project'); ?></h3>
         </div>
+
         <?php
             if (isset($template) && !empty($template)) {
-                $this->load->view($template, isset($data) ? $data:NULL);
-            } else {
-                ?>
-                <div class="jumbotron">
-                    <h1><?= lang('content_1'); ?></h1>
-                    <p class="lead"><?= lang('content_2'); ?></p>
-                    <p><a class="btn btn-lg btn-success" href="index.php/sessions/sign_up" role="button"><?= lang('sign_up'); ?></a></p>
-                </div>
-                <?php
+                $this->load->view($template, isset($data) ? $data : NULL);
             }
         ?>
+
         <footer class="footer">
             <p><?= lang('footer'); ?></p>
         </footer>
