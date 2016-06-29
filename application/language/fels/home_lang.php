@@ -8,6 +8,7 @@ $lang['home_page_title'] = 'Home Page';
 $lang['home'] = 'Home';
 $lang['about'] = 'About';
 $lang['contact'] = 'Contact';
+$lang['setting'] = 'Setting';
 $lang['sign_in'] = 'Sign in';
 $lang['sign_up'] = 'Sign up';
 $lang['sign_out'] = 'Logout';

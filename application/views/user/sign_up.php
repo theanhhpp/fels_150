@@ -2,7 +2,7 @@
     <div class="row col-sm-5 col-sm-offset-4">   
         <form class="form-signin" action="" method="post">
             <h3><b><?= lang('title_sign_up'); ?></b></h3>
-            <?= validation_errors();?>
+            <?= validation_errors(); ?>
             <div class="form-group">
                 <label for="exampleInputEmail1"><?= lang('first_name'); ?></label>
                 <input type="text" class="form-control"  name="first_name" placeholder="<?= lang('first_name'); ?>" value="<?= set_value('first_name', ''); ?>">
@@ -17,11 +17,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1"><?= lang('password'); ?></label>
-                <input type="password" class="form-control"  name="password" placeholder="<?= lang('password'); ?>" value="<?= set_value('password', ''); ?>">
+                <input type="password" class="form-control"  name="password" placeholder="<?= lang('password'); ?>" value="">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1"><?= lang('password_confirmation'); ?></label>
-                <input type="password" class="form-control" name="password_confirmation" placeholder="<?= lang('password_confirmation'); ?>" value="<?= set_value('password_confirmation', ''); ?>">
+                <input type="password" class="form-control" name="password_confirmation" placeholder="<?= lang('password_confirmation'); ?>" value="">
             </div>
             <div class="form-group">
                 <label for="exampleInputFile"><?= lang('avatar'); ?></label>
