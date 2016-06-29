@@ -14,7 +14,7 @@ class Sessions extends CI_Controller
 
     public function sign_up() 
     {
-        
+
         if ($this->input->post('sign-up')) {
             $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
             $this->form_validation->set_rules('last_name', lang('last_name'), 'required');
@@ -29,7 +29,6 @@ class Sessions extends CI_Controller
                     'last_name' => $this->input->post('last_name'),
                     'email' => $this->input->post('email'),
                     'password' => md5($this->input->post('password')),
-                    'created' => gmdate('Y-m-d H:i:s',time() + 7*3600),
                 );
                 $fag = $this->Session_Model->create($array);
                 $email =  $this->input->post('email');
@@ -49,7 +48,8 @@ class Sessions extends CI_Controller
 
     public function login()
     {   
-        
+
+        $data = $this->Auth_Model->auth();
         if (isset($this->authentication) && count($this->authentication) > 0) {
             redirect('users');
         }
@@ -85,8 +85,11 @@ class Sessions extends CI_Controller
 
     public function logout() 
     {
+        $this->session->unset_userdata('token');
+        $this->session->unset_userdata('userData');
         $this->session->unset_userdata('auth');    
         $this->session->unset_userdata('authentication');
+        $this->session->sess_destroy();
         redirect('users');
     }
 
