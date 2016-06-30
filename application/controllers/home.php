@@ -8,6 +8,7 @@ class Home extends CI_Controller
         parent::__construct();
         $this->lang->load('home', 'fels');	
     }
+    
     public function index() 
     {
         $data['title'] = lang('name_project');

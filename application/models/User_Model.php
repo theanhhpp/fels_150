@@ -48,18 +48,6 @@ class User_Model extends CI_Model
     {            
         $this->db->where($param_where);
         $this->db->update(self::TABLE, $param_data);  
-        $fag = $this->db->affected_rows();
-
-        if ($fag > 0) {
-            return array(
-                'type' => 'seccessful',
-                'message' => lang('update_seccessful'),
-            );
-        } else {
-            return array(
-                'type' => 'error',
-                'message' => lang('update_error'),
-            );
-        }
+        return $this->db->affected_rows();
     }
 }

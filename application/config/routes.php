@@ -53,3 +53,4 @@ $route['default_controller'] = 'home/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['users'] = 'user/index';
+$route['words'] = 'word/index';

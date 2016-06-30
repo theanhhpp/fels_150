@@ -3,7 +3,7 @@
     
     if (isset($message_flashdata) && count($message_flashdata)) {
         
-        if ($message_flashdata['type'] == 'seccessful') {
+        if ($message_flashdata['type'] == 'successful') {
         ?>
             <p style="color:#5cb85c;"><?= $message_flashdata['message']; ?></p>
             <?php
