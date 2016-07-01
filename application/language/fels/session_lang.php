@@ -19,6 +19,6 @@ $lang['login_seccessful'] = 'Đăng nhập thành công !';
 $lang['seccessful'] = 'Đăng kí thành công !';
 $lang['error'] = 'Đăng kí thất bại !';
 $lang['update_seccessful'] = 'Cập nhật dữ liệu thành công!';
-$lang['update_error'] = 'Cập nhật dữ liệu thành công!';
+$lang['update_error'] = 'Cập nhật dữ liệu thất bại!';
 $lang['update_seccessful'] = 'Cập nhật dữ liệu thành công!';
 $lang['remember'] = 'Remember me';

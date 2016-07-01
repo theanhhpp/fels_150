@@ -14,7 +14,6 @@ class Sessions extends CI_Controller
 
     public function sign_up() 
     {
-
         if ($this->input->post('sign-up')) {
             $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
             $this->form_validation->set_rules('last_name', lang('last_name'), 'required');
@@ -48,7 +47,6 @@ class Sessions extends CI_Controller
 
     public function login()
     {   
-
         $data = $this->Auth_Model->auth();
         if (isset($this->authentication) && count($this->authentication) > 0) {
             redirect('users');
@@ -92,29 +90,7 @@ class Sessions extends CI_Controller
         $this->session->sess_destroy();
         redirect('users');
     }
-
-    public function checkpassword($password_confirmation = '') 
-    {
-        $password = $this->input->post('password');
-
-        if ($password != $password_confirmation) {
-            $this->form_validation->set_message('checkpassword', lang('check_password'));
-            return FALSE;
-        }
-        return TRUE;
-    }
-
-    public function checkemail($email = '') 
-    {
-        $user = $this->User_Model->get(array('email' => $email));
-
-        if (isset($user) && count($user)) {
-            $this->form_validation->set_message('checkemail', lang('check_email'));
-            return FALSE;   
-        }
-        return TRUE;    
-    }
-
+    
     public function authentication($password = '') 
     {
         $email = $this->input->post('email');

@@ -27,13 +27,10 @@
             <nav>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation">
-                        <a href=""><?= lang('home'); ?></a>
+                        <a href="index.php/users"><?= lang('home'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="#"><?= lang('about'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#"><?= lang('contact'); ?></a>
+                        <a href="index.php/user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
                     </li>
                     <li role="presentation">
                         <a href="index.php/sessions/logout"><?= lang('sign_out'); ?></a>
