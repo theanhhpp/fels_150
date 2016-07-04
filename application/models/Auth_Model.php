@@ -13,7 +13,7 @@ class Auth_Model extends CI_Model
         // Facebook API Configuration
         $appId = $config['appId'];
         $appSecret = $config['appSecret'];
-        $redirectUrl = base_url() . 'index.php/user/show';
+        $redirectUrl = base_url() . 'index.php/sessions/show';
         $fbPermissions = 'email';        
         //Call Facebook API
         $facebook = new Facebook(array(

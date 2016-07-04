@@ -33,6 +33,9 @@
                         <a href="index.php/user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
                     </li>
                     <li role="presentation">
+                        <a href="index.php/words"><?= lang('title_word'); ?></a>
+                    </li>
+                    <li role="presentation">
                         <a href="index.php/sessions/logout"><?= lang('sign_out'); ?></a>
                     </li>
                 </ul>

@@ -39,7 +39,7 @@
                         <a href="index.php/sessions/login"><?= lang('sign_in'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/user/sign_up"><?= lang('sign_up'); ?></a>
+                        <a href="index.php/sessions/sign_up"><?= lang('sign_up'); ?></a>
                     </li>
                 </ul>
             </nav>
