@@ -18,7 +18,7 @@ class Category_Model extends CI_Model
 
     public function view_category($start, $limit) 
     {
-        return $this->db->select('*')->from(self::TABLE)->order_by('id DESC')->limit($limit, $start)->get()->result_array();    
+        return $this->db->select('*')->from(self::TABLE)->order_by('id DESC')->limit($limit, $start)->get()->result_array();
     }
 
     public function total() 

@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th><div><label><input type = "checkbox" id = "checkAll"></label></div></th>
-                            <th><?= lang('category_id'); ?></th>
+                            <th><?= lang('category'); ?></th>
                             <th><?= lang('category_name'); ?></th>
                         </tr>
                     </thead>

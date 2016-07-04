@@ -11,7 +11,7 @@ class Category extends My_Controller
         $this->lang->load('category', 'fels');
     }
 
-    public function add_category() 
+    public function add() 
     {
         if ($this->input->post('create-category')) {
             $this->form_validation->set_rules('name', lang('category_name'), 'required');      
@@ -61,6 +61,7 @@ class Category extends My_Controller
         $data['meta_title'] = lang('meta_title');
         $data['active'] = "category";
         $data['template'] = 'category/index';
+        $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
     }
 }

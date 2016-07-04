@@ -39,30 +39,30 @@
                                 <td>
                                     <input type="checkbox" class = "ch" name= "checkbox[]" value = "<?= $value['id']; ?>"/>
                                 </td>
-                                <td><?= $value['content']; ?></td>
+                                <td><a href="word/show/<?= $value['id']; ?>"><?= $value['content']; ?></a></td>
                                 <td><?= $value['category_id']; ?></td>
                                 <td><?= $value['created_at']; ?></td>
                                 <td><?= $value['updated_at']; ?></td>
                                 <td><?= $value['id']; ?></td>
                                 <td>
-                                    <a href= "index.php/word/edit/<?= $value['id'];?>"><?= lang('edit'); ?></a> | 
-                                    <a class = "delete"  href= "index.php/word/delete/<?= $value['id']; ?>"><?= lang('delete'); ?></a>
+                                    <a href= "word/edit/<?= $value['id'];?>"><?= lang('edit'); ?></a> | 
+                                    <a class = "delete"  href= "word/delete/<?= $value['id']; ?>"><?= lang('delete'); ?></a>
                                 </td>
                             </tr>
                         <?php
                         }
                     } else {
-                        echo '<tr><td colspan="7">Không có dữ liệu</td></tr>';    
+                        echo '<tr><td colspan="7">'. lang('no_data') .'</td></tr>';    
                     }
                     ?>
                 </tbody>
             </table>
         </div>
         <div class="col-sm-2" style="padding-left:0px;">
-            <a href="index.php/word/add" class="btn btn-default"><?= lang('title_add_word'); ?></a>
+            <a href="word/add" class="btn btn-default"><?= lang('title_add_word'); ?></a>
         </div>
         <div class="col-sm-7">
-            <input type="submit" class="btn btn-default" name="delete_more" value="<?= lang('delete'); ?>" /> 		
+            <input type="submit" class="btn btn-default delete" name="delete_more" value="<?= lang('delete'); ?>" /> 		
         </div>   
         <div class="col-sm-3">
             <?php echo isset($list_pagination) ? $list_pagination : ''; ?>    
