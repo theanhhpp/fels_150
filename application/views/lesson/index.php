@@ -36,7 +36,7 @@
                                     <input type="checkbox" class = "ch" name= "checkbox[]" value = "<?= $value['lesson_id']; ?>"/>
                                 </td>
                                 <td><a href= "lesson/show/<?= $value['lesson_id'];?>"><?= $value['lesson_name']; ?></a></td>
-                                <td><?= $value['category_name']; ?></td>
+                                <td><a href= "category/show/<?= $value['lesson_id'];?>"><?= $value['category_name']; ?></td>
                                 <td><?= $value['created_at']; ?></td>
                                 <td><?= $value['updated_at']; ?></td>
                                 <td><?= $value['lesson_id']; ?></td>

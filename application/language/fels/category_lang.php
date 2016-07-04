@@ -2,6 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['title_category'] = "Category";
 $lang['category_create_successful'] = 'Thêm category thành công!';
 $lang['category_create_error'] = 'Thêm category không thành công!';
 $lang['category_delete_successful'] = 'Xóa category thành công';
@@ -19,3 +20,4 @@ $lang['category_edit_successful'] = 'Sửa category thành công';
 $lang['category_edit_error']  = 'Sửa category thất bại';
 $lang['category_delete_successful'] = 'Xóa category thành công';
 $lang['category_delete_error'] = 'Xóa category thất bại';
+$lang['title_show_category'] = 'Show 1 Category';

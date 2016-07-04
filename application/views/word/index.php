@@ -38,7 +38,7 @@
                                     <input type="checkbox" class = "ch" name= "checkbox[]" value = "<?= $value['word_id']; ?>"/>
                                 </td>
                                 <td><a href="word/show/<?= $value['word_id']; ?>"><?= $value['content']; ?></a></td>
-                                <td><?= $value['category_name']; ?></td>
+                                <td><a href="category/show/<?= $value['word_id']; ?>"><?= $value['category_name']; ?></td>
                                 <td><?= $value['created_at']; ?></td>
                                 <td><?= $value['updated_at']; ?></td>
                                 <td><?= $value['word_id']; ?></td>

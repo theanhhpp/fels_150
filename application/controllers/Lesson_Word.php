@@ -16,7 +16,7 @@ class Lesson_Word extends My_Controller
     {
         $lesson_id = $this->input->get('lesson_id');
         $data['lesson'] = $this->Lesson_Model->get(['id' => $lesson_id]);
-        $data['category'] = $this->Category_Model->get(['id' => $data['lesson']['category_id']]);
+        $data['category'] = $this->Category_Model->get_category_id(['id' => $data['lesson']['category_id']]);
 
         if ($this->input->post('add_word')) {
             $list_word_id = $this->input->post('checkbox');
