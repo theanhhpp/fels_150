@@ -9,6 +9,7 @@ class User extends My_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('user', 'fels');
+        $this->lang->load('category', 'fels');
     }
 
     public function index()

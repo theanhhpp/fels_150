@@ -1,15 +1,32 @@
 <?php
 
-class Word_Model extends CI_Model 
+class Word_Answer_Model extends CI_Model 
 {
-    const TABLE = 'words';
+    const TABLE = 'word_answers';
 
-    public function get_word($param_where = NULL) {
+    public function get_answer($param_where = NULL) 
+    {
         $this->db->select('*')->from(self::TABLE);
+
         if(isset($param_where) && count($param_where)) {
             $this->db->where($param_where);
         }
-        return $this->db->get()->row_array();
+        return $this->db->get()->result_array();
+    }
+
+    public function get_answer_id($param_where = NULL) 
+    {
+        $this->db->select('*')->from(self::TABLE);
+
+        if(isset($param_where) && count($param_where)) {
+            $this->db->where($param_where);
+        }
+        $list_word_answer = $this->db->get()->result_array();
+
+        foreach ($list_word_answer as $key => $value) {
+            $array_id[] = $value['id'];
+        }
+        return $array_id;
     }
 
     public function total() 
@@ -25,11 +42,7 @@ class Word_Model extends CI_Model
     public function insert($param_data = NULL) 
     {
         $this->db->insert(self::TABLE, $param_data);
-        $fag = array(
-            'affected_rows' => $this->db->affected_rows(),
-            'insert_id' => $this->db->insert_id(),
-        );
-        return $fag;
+        return $this->db->affected_rows();
     }
 
     public function update($id, $param_data = NULL) 

@@ -27,16 +27,19 @@
             <nav>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation">
-                        <a href="index.php/users"><?= lang('home'); ?></a>
+                        <a href="users"><?= lang('home'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
+                        <a href="user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/words"><?= lang('title_word'); ?></a>
+                        <a href="categories"><?= lang('title_categories'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/sessions/logout"><?= lang('sign_out'); ?></a>
+                        <a href="words"><?= lang('title_word'); ?></a>
+                    </li>
+                    <li role="presentation">
+                        <a href="sessions/logout"><?= lang('sign_out'); ?></a>
                     </li>
                 </ul>
             </nav>

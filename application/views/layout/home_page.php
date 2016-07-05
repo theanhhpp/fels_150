@@ -36,10 +36,10 @@
                         <a href="#"><?= lang('contact'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/sessions/login"><?= lang('sign_in'); ?></a>
+                        <a href="sessions/login"><?= lang('sign_in'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="index.php/sessions/sign_up"><?= lang('sign_up'); ?></a>
+                        <a href="sessions/sign_up"><?= lang('sign_up'); ?></a>
                     </li>
                 </ul>
             </nav>
@@ -53,7 +53,7 @@
                 <div class="jumbotron">
                     <h1><?= lang('content_1'); ?></h1>
                     <p class="lead"><?= lang('content_2'); ?></p>
-                    <p><a class="btn btn-lg btn-success" href="index.php/user/sign_up" role="button"><?= lang('sign_up'); ?></a></p>
+                    <p><a class="btn btn-lg btn-success" href="user/sign_up" role="button"><?= lang('sign_up'); ?></a></p>
                 </div>
                 <?php
             }
