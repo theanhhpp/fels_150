@@ -32,6 +32,9 @@
                     <li role="presentation">
                         <a href="user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
                     </li>
+                      <li role="presentation">
+                        <a href="index.php/lessons"><?= lang('all_lessons'); ?></a>
+                    </li>
                     <li role="presentation">
                         <a href="categories"><?= lang('title_categories'); ?></a>
                     </li>
@@ -63,6 +66,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/custom.js"></script>
 </body>
 
 </html>

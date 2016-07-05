@@ -188,30 +188,4 @@ class Sessions extends CI_Controller
         }
         return TRUE;
     }
-    public function checkpassword($password_confirmation = '') 
-    {
-        $password = $this->input->post('password');
-
-        if ($password != $password_confirmation) {
-            $this->form_validation->set_message('checkpassword', lang('check_password'));
-            return FALSE;
-        }
-        return TRUE;
-    }
-
-    public function checkemail($email = '') 
-    {
-        $user = $this->User_Model->get(array('email' => $email));
-
-        if (isset($user) && count($user)) {
-
-            if ($user == $this->authentication) {
-                return TRUE;        
-            } else {
-                $this->form_validation->set_message('checkemail', lang('check_email'));
-                return FALSE;          
-            }  
-        }
-        return TRUE;    
-    }
 }

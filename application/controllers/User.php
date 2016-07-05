@@ -22,7 +22,7 @@ class User extends My_Controller
     public function edit($id) 
     {
         if ($this->input->post('edit')) {
-            $this->check_rules();
+            $this->set_rules();
             
             if ($this->form_validation->run()) {
                 $array = array(
@@ -58,34 +58,7 @@ class User extends My_Controller
         $this->load->view('layout/index', $data);
     }
 
-    public function checkpassword($password_confirmation = '') 
-    {
-        $password = $this->input->post('password');
-
-        if ($password != $password_confirmation) {
-            $this->form_validation->set_message('checkpassword', lang('check_password'));
-            return FALSE;
-        }
-        return TRUE;
-    }
-
-    public function checkemail($email = '') 
-    {
-        $user = $this->User_Model->get(array('email' => $email));
-
-        if (isset($user) && count($user)) {
-
-            if ($user == $this->authentication) {
-                return TRUE;        
-            } else {
-                $this->form_validation->set_message('checkemail', lang('check_email'));
-                return FALSE;          
-            }  
-        }
-        return TRUE;    
-    }
-
-    public function check_rules() 
+    public function set_rules() 
     {
         $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
         $this->form_validation->set_rules('last_name', lang('last_name'), 'required');

@@ -4,10 +4,9 @@ class Category_Model extends CI_Model
 {   
     const TABLE = 'categories';
 
-    public function get($id = 0) 
+    public function get($param_where) 
     {
-        $id = (int)$id;
-        return $this->db->select('*')->from(self::TABLE)->where(array('id' => $id))->get()->row_array();
+        return $this->db->select('*')->from(self::TABLE)->where($param_where)->get()->row_array();
     }
     
     public function create($data_value = NULL) 

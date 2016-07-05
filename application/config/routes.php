@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['users'] = 'user/index';
 $route['words'] = 'word/index';
 $route['categories'] = 'category/index';
+$route['lessons'] = 'lesson/index';
