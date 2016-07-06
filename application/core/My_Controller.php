@@ -77,34 +77,46 @@ class My_Controller extends CI_Controller
             }   
             
             if ($fag > 0) {
-            $fag = array(
+            $fag = [
                     'type' => 'successful',
                     'message' => lang('delete_lesson_successful'),
-                );
+                ];
             } else {
-                $fag = array(
+                $fag = [
                     'type' => 'error',
                     'message' => lang('delete_lesson_error'),
-                );
+                ];
             }
             $this->session->set_flashdata('message_flashdata', $fag);
             redirect('lessons');        
         }        
     }
 
-    public function check_data($data, $check)
+    public function check_data($data, $redirect)
     {
         if (!isset($data) || count($data) == 0) {
-            $fag = array(
+            $fag = [
                 'type' => 'error',
                 'message' => lang('no_word'),
-            ); 
+            ]; 
             $this->session->set_flashdata('message_flashdata', $fag);
-            if ($check == 1) {
-                redirect('words');   
-            } else {
-                redirect('lessons');
-            }            
+            redirect($redirect);          
         } 
+    }
+
+    public function fag_messge($fag, $message_successful, $message_error)
+    {
+        if ($fag > 0) {
+            $fag_messge = [
+                'type' => 'successful',
+                'message' => $message_successful,
+            ];
+        } else {
+            $fag_messge = [
+                'type' => 'error',
+                'message' => $message_error,
+            ];
+        }
+        return $fag_messge;
     }
 }

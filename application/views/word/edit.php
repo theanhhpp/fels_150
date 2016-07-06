@@ -5,7 +5,7 @@
                 <h2><?= lang('title_edit_word'); ?></h2> </br>
                 <?php echo  validation_errors();?>              
                     <div class="form-group">
-                        <label for="exampleInputEmail1"><?= lang('content_word'); ?>:</label>
+                        <label for="exampleInputEmail1"><?= lang('word'); ?>:</label>
                         <input type="text" class="form-control"  name="content" placeholder="<?= lang('content_word'); ?>" value="<?= $word['content']; ?>">
                     </div>
                     <div class="form-group">

@@ -32,18 +32,7 @@ class User extends My_Controller
                     'password' => md5($this->input->post('password')),
                 );
                 $fag = $this->User_Model->update($array, array('id' => $this->authentication['id']));
-                
-                if ($fag> 0) {
-                    $fag = array(
-                        'type' => 'successful',
-                        'message' => lang('update_successful'),
-                    );
-                } else {
-                    $fag = array(
-                        'type' => 'error',
-                        'message' => lang('update_error'),
-                    );
-                }
+                $fag = $this->fag_messge($fag, lang('update_successful'), lang('update_error'));
                 $email =  $this->input->post('email');
                 $user = $this->User_Model->get(array('email' => $email));
                 $this->session->set_userdata('authentication', json_encode($user));

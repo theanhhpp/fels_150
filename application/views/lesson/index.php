@@ -55,7 +55,7 @@
         <div class="col-sm-2" style="padding-left:0px;">
             <a href="lesson/add" class="btn btn-default"><?= lang('title_add_lesson'); ?></a>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-5">
             <input type="submit" class="btn btn-default delete" name="delete_more" value="<?= lang('delete'); ?>" /> 		
         </div>   
         <div class="col-sm-3">

@@ -6,6 +6,7 @@ class Word_Model extends CI_Model
 
     public function get_word($param_where = NULL) {
         $this->db->select('*')->from(self::TABLE);
+        
         if(isset($param_where) && count($param_where)) {
             $this->db->where($param_where);
         }
@@ -17,14 +18,18 @@ class Word_Model extends CI_Model
         return $this->db->from(self::TABLE)->count_all_results();
     }
     
-    public function view($start, $limit) 
+    public function view($start, $limit, $param_where) 
     {
-        return $this->db->select(self::TABLE.'.id as word_id ,'.self::TABLE. '.content, category_id, categories.name as 
+        $this->db->select(self::TABLE. '.id as word_id ,'.self::TABLE. '.content, category_id, categories.name as 
             category_name,' .self::TABLE. '.created_at,' .self::TABLE. '.updated_at')
-            ->from(self::TABLE)->join('categories', self::TABLE. '.category_id = categories.id')
-            ->order_by(self::TABLE.'.id DESC')
-            ->limit($limit, $start)
-            ->get()->result_array();   
+            ->from(self::TABLE)->join('categories', self::TABLE. ' . category_id = categories.id')
+            ->order_by(self::TABLE. '.id DESC')
+            ->limit($limit, $start);
+
+        if(isset($param_where) && count($param_where)) {
+            $this->db->where($param_where);
+        }
+        return $this->db->get()->result_array();   
     }
 
     public function insert($param_data = NULL) 

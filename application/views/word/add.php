@@ -5,7 +5,7 @@
                 <h3><b><?= lang('title_add_word'); ?></b></h3>
                 <?= validation_errors(); ?>
                 <div class="form-group">
-                    <label><?= lang('content_word'); ?>:</label>
+                    <label><?= lang('word'); ?>:</label>
                     <input type="text" class="form-control"  name="content" placeholder="<?= lang('content_word'); ?>" value="<?= set_value('content', ''); ?>">
                 </div>
                 <div class="form-group">
