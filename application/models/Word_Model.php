@@ -19,7 +19,12 @@ class Word_Model extends CI_Model
     
     public function view($start, $limit) 
     {
-        return $this->db->select('*')->from(self::TABLE)->order_by('id DESC')->limit($limit, $start)->get()->result_array();   
+        return $this->db->select(self::TABLE.'.id as word_id ,'.self::TABLE. '.content, category_id, categories.name as 
+            category_name,' .self::TABLE. '.created_at,' .self::TABLE. '.updated_at')
+            ->from(self::TABLE)->join('categories', self::TABLE. '.category_id = categories.id')
+            ->order_by(self::TABLE.'.id DESC')
+            ->limit($limit, $start)
+            ->get()->result_array();   
     }
 
     public function insert($param_data = NULL) 
