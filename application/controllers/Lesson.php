@@ -35,8 +35,26 @@ class Lesson extends My_Controller
 
     public function show($id) 
     {
-        $data['lesson'] = $fag = $this->Lesson_Model->get(array('id' => $id));
-        $data['category'] = $this->Category_Model->get(array('id' => $fag['category_id']));
+        if(!isset($id) || count($id) == 0) {
+            redirect('lessons');
+        }
+        $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
+        $data['category'] = $this->Category_Model->get(['id' => $data['lesson']['category_id']]);
+        $list_lesson_word = $this->Lesson_Word_Model->get(array('lesson_id' => $id));
+        $i = 0;
+        foreach ($list_lesson_word as $key => $value) {
+            $word = $this->Word_Model->get_word(['id' => $value['word_id']]);
+
+            if(isset($word) && count($word)) {
+                $list_word[$i] = $this->Word_Model->get_word(['id' => $value['word_id']]);
+                $list_word[$i]['lesson_word_id'] = $value['id'];
+                $list_word [$i]['word_anser'] = $this->Word_Answer_Model->get_answer(['word_id' => $value['word_id']]);
+                $i++;   
+            }            
+        }
+        if(isset($list_word) && count($list_word)) {
+            $data['list_word'] = $list_word;
+        }
         $data['title'] = lang('lesson');
         $data['template'] = 'lesson/show';
         $data['authentication'] = $this->authentication;
@@ -54,19 +72,8 @@ class Lesson extends My_Controller
                     'name' => $this->input->post('name'),
                 );
                 $fag = $this->Lesson_Model->insert($array);
-
-                if ($fag > 0) {
-                    $fag = array(
-                        'type' => 'successful',
-                        'message' => lang('add_lesson_successful'),
-                    );
-                } else {
-                    $fag = array(
-                        'type' => 'error',
-                        'message' => lang('add_lesson_error'),
-                    );
-                }
-                $this->session->set_flashdata('message_flashdata',$fag);
+                $fag = $this->fag_messge($fag, lang('add_lesson_successful'), lang('add_lesson_error'));
+                $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('lessons');	
             }
         }
@@ -79,8 +86,8 @@ class Lesson extends My_Controller
 
     public function edit($id = 0) 
     {
-        $data['lesson'] = $this->Lesson_Model->get(array('id' => $id));
-        $this->check_data($data['lesson'], 0);
+        $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
+        $this->check_data($data['lesson'], 'lessons');
 
         if ($this->input->post('edit_lesson')) {
             $this->set_rules();
@@ -90,19 +97,8 @@ class Lesson extends My_Controller
                     'category_id' => $this->input->post('category'),
                     'name' => $this->input->post('name'),
                 );
-                $test = $this->Lesson_Model->update($id, $array);
-
-                if ($test > 0) {
-                    $fag = array(
-                        'type' => 'successful',
-                        'message' => lang('edit_lesson_successful'),
-                    );
-                } else {
-                    $fag = array(
-                        'type' => 'error',
-                        'message' => lang('edit_lesson_error'),
-                    );
-                }
+                $fag = $this->Lesson_Model->update($id, $array);
+                $fag = $this->fag_messge($fag, lang('edit_word_successful'), lang('add_word_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('lessons');
             }
@@ -117,21 +113,10 @@ class Lesson extends My_Controller
 
     public function delete($id = 0) 
     {
-        $data['lesson'] = $this->Lesson_Model->get(array('id' => $id));
-        $this->check_data($data['lesson'], 0);
-        $fag = $this->Lesson_Model->delete((array)$id);
-
-        if ($fag > 0) {
-            $fag = array(
-                'type' => 'successful',
-                'message' => lang('delete_lesson_successful'),
-            );
-        } else {
-            $fag = array(
-                'type' => 'error',
-                'message' => lang('delete_lesson_error'),
-            );
-        }
+        $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
+        $this->check_data($data['lesson'], 'lessons');
+        $fag = $this->Lesson_Model->delete((array) $id);
+        $fag = $this->fag_messge($fag, lang('delete_lesson_successful'), lang('delete_lesson_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('lessons');
     }

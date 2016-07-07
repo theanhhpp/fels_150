@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(".delete").click(function(){
-        var r = confirm("Press a button!");
+        var r = confirm("Are you ok!");
         if (r) {
             return true;
         } else {

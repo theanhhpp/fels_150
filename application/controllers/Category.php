@@ -18,24 +18,11 @@ class Category extends My_Controller
             $this->form_validation->set_error_delimiters('<div style="color:red">', '</div>');
 
             if ($this->form_validation->run()) {
-                $array = array(
-                    'name' => $this->input->post('name'),
-                );
-                $fag = $this->Category_Model->create($array);
+                $array = ['name' => $this->input->post('name')];
+                $fag = $this->Category_Model->create($array);  
+                $fag = $this->fag_messge($fag, lang('category_create_successful'), lang('category_create_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
-                redirect('categories');   
-                
-                if ($fag > 0) {
-                    $fag = array(
-                        'type' => 'seccessful',
-                        'message' => lang('category_create_successful'),
-                    );
-                } else {
-                    $fag = array(
-                        'type' => 'error',
-                        'message' => lang('category_create_error'),
-                    );
-                }  
+                redirect('categories'); 
             }
         }
         $data['title'] = lang('title_create_category');   

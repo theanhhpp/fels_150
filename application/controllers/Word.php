@@ -25,7 +25,7 @@ class Word extends My_Controller
         $page = $page - 1;
 
         if ($config['per_page'] > 0) {
-            $data['list_word'] = $this->Word_Model->view(($page*$config['per_page']), $config['per_page']);
+            $data['list_word'] = $this->Word_Model->view(($page*$config['per_page']), $config['per_page'], NULL);
         }
         $data['title'] = lang('title_word');
         $data['template'] = 'word/index';
@@ -35,8 +35,8 @@ class Word extends My_Controller
 
     public function show($id) 
     {
-        $data['word'] = $fag = $this->Word_Model->get_word(array('id' => $id));
-        $data['word_answer'] = $word_answer = $this->Word_Answer_Model->get_answer(array('word_id' => $fag['id'], 'correct' => 1));
+        $data['word'] = $this->Word_Model->get_word(['id' => $id]);
+        $data['word_answer'] = $this->Word_Answer_Model->get_answer(['word_id' =>  $data['word']['id'], 'correct' => 1]);
         $data['title'] = lang('word');
         $data['template'] = 'word/show';
         $data['authentication'] = $this->authentication;
@@ -56,18 +56,7 @@ class Word extends My_Controller
                 $fag = $this->Word_Model->insert($array);
                 $checkbox = $this->input->post('checkbox');
                 $check = $this->set_word_answer(NULL, $checkbox, $fag['insert_id'], 0);
-
-                if ($fag['affected_rows'] > 0) {
-                    $fag = array(
-                        'type' => 'successful',
-                        'message' => lang('add_word_successful'),
-                    );
-                } else {
-                    $fag = array(
-                        'type' => 'error',
-                        'message' => lang('add_word_error'),
-                    );
-                }
+                $fag = $this->fag_messge($fag, lang('add_word_successful'), lang('add_word_error'));
                 $this->session->set_flashdata('message_flashdata',$fag);
                 redirect('words');	
             }
@@ -81,9 +70,9 @@ class Word extends My_Controller
 
     public function edit($id = 0) 
     {
-        $data['word'] = $this->Word_Model->get_word(array('id' => $id));
-        $this->check_data($data['word'], 1);
-        $data['list_word_answer'] = $list_word_answer = $this->Word_Answer_Model->get_answer(array('word_id' => $id));
+        $data['word'] = $this->Word_Model->get_word(['id' => $id]);
+        $this->check_data($data['word'], 'words');
+        $data['list_word_answer'] = $list_word_answer = $this->Word_Answer_Model->get_answer(['word_id' => $id]);
 
         if ($this->input->post('edit_word')) {
             $this->set_rules();
@@ -96,7 +85,6 @@ class Word extends My_Controller
                 $fag = $this->Word_Model->update($id, $array);
                 $checkbox = $this->input->post('checkbox');
                 $check = $this->set_word_answer($list_word_answer, $checkbox, $id, 1);
-
                 if ($fag > 0 || $check > 0) {
                     $fag = array (
                         'type' => 'successful',
@@ -121,23 +109,12 @@ class Word extends My_Controller
 
     public function delete($id = 0) 
     {
-        $word = $this->Word_Model->get_word(array('id' => $id));
-        $this->check_data($word, 1);
-        $list_word_answer = $this->Word_Answer_Model->get_answer_id(array('word_id' => $word['id']));
+        $word = $this->Word_Model->get_word(['id' => $id]);
+        $this->check_data($word, 'words');
+        $list_word_answer = $this->Word_Answer_Model->get_answer_id(['word_id' => $word['id']]);
         $fag = $this->Word_Model->delete((array)$id);
         $fag = $this->Word_Answer_Model->delete($list_word_answer);
-
-        if ($fag > 0) {
-            $fag = array(
-                'type' => 'successful',
-                'message' => lang('delete_word_successful'),
-            );
-        } else {
-            $fag = array(
-                'type' => 'error',
-                'message' => lang('delete_word_error'),
-            );
-        }
+        $fag = $this->fag_messge($fag, lang('delete_word_successful'), lang('delete_word_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('words');
     }
