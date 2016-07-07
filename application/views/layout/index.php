@@ -36,7 +36,7 @@
                         <a href="index.php/lessons"><?= lang('all_lessons'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="categories"><?= lang('title_categories'); ?></a>
+                        <a href="categories"><?= lang('title_category'); ?></a>
                     </li>
                     <li role="presentation">
                         <a href="words"><?= lang('title_word'); ?></a>

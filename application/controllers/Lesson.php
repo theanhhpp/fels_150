@@ -39,7 +39,7 @@ class Lesson extends My_Controller
             redirect('lessons');
         }
         $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
-        $data['category'] = $this->Category_Model->get(['id' => $data['lesson']['category_id']]);
+        $data['category'] = $this->Category_Model->get_category_id(['id' => $data['lesson']['category_id']]);
         $list_lesson_word = $this->Lesson_Word_Model->get(array('lesson_id' => $id));
         $i = 0;
         foreach ($list_lesson_word as $key => $value) {
