@@ -6,7 +6,7 @@
             <div class="form-group">
             <label for="exampleInputEmail1"><?= lang('category_name'); ?></label>
                 <input type = "text" class = "form-control"  name = "name" placeholder = "<?= lang('category_name'); ?>" value = 
-                "<?= set_value('name', ''); ?>">
+                "<?= $category['name']; ?>">
             </div>
             <input type = "submit" class = "btn btn-default" name = "edit_category" value = "<?= lang('title_edit_category'); ?>" />
         </form>

@@ -33,16 +33,16 @@
                         <a href="user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
                     </li>
                       <li role="presentation">
-                        <a href="index.php/lessons"><?= lang('all_lessons'); ?></a>
+                        <a href="lessons"><?= lang('all_lessons'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="categories"><?= lang('title_category'); ?></a>
+                        <a href="categories"><?= lang('title_categories'); ?></a>
                     </li>
                     <li role="presentation">
                         <a href="words"><?= lang('title_word'); ?></a>
                     </li>
                     <li role="presentation">
-                        <a href="sessions/logout"><?= lang('sign_out'); ?></a>
+                        <a href="sessions/logout" class="delete"><?= lang('sign_out'); ?></a>
                     </li>
                 </ul>
             </nav>

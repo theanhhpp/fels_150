@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sessions extends CI_Controller 
+class Sessions extends My_Controller 
 {
     public function __construct()
     {
@@ -9,7 +9,6 @@ class Sessions extends CI_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('word', 'fels');
-        $this->authentication = $this->my_authentication->check();
     }
 
     public function sign_up()
@@ -168,7 +167,10 @@ class Sessions extends CI_Controller
                 $data['authUrlfb'] = $facebook->getLoginUrl(array('redirect_uri'=>$redirectUrl, 'scope'=> $fbPermissions));
             }
         }
-        $this->load->view('user/show', $data);
+        $data['title'] = lang('title_lesson');
+        $data['template'] = 'user/show';
+        $data['authentication'] = $this->authentication;
+        $this->load->view('layout/index', $data);
     }
     
     public function authentication($password = '') 

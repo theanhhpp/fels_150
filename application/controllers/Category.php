@@ -9,7 +9,8 @@ class Category extends My_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('category', 'fels');
-        $this->authentication = $this->my_authentication->check();
+        $this->check_authentication();
+        $this->check_action('category', $this->router->fetch_method());
     }
 
     public function index($page = 1) 
@@ -28,7 +29,7 @@ class Category extends My_Controller
         }   
         $data['meta_title'] = lang('meta_title');
         $data['active'] = "category";
-        $data['template'] = 'category/index';
+        $data['template'] = $this->template('category/index', 'user/category'); 
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
     }
@@ -41,7 +42,7 @@ class Category extends My_Controller
             if ($this->form_validation->run()) {
                 $array = ['name' => $this->input->post('name')];
                 $fag = $this->Category_Model->create($array);  
-                $fag = $this->fag_messge($fag, lang('category_create_successful'), lang('category_create_error'));
+                $fag = $this->fag_messge($fag, 0, lang('category_create_successful'), lang('category_create_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('categories');      
             }
@@ -55,7 +56,7 @@ class Category extends My_Controller
     public function edit($id = 0) 
     {
         $data['category'] = $this->Category_Model->get_category_id(array('id' => $id));
-        $this->check_data($data['category'], 0);
+        $this->check_data($data['category'], 'categories');
 
         if ($this->input->post('edit_category')) {
             $this->set_rules();
@@ -63,7 +64,7 @@ class Category extends My_Controller
             if ($this->form_validation->run()) {
                 $array = ['name' => $this->input->post('name')];
                 $fag = $this->Category_Model->update($id, $array);
-                $fag = $this->fag_messge($fag, lang('category_edit_successful'), lang('category_edit_error'));
+                $fag = $this->fag_messge($fag, 0, lang('category_edit_successful'), lang('category_edit_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);          
                 redirect('categories');
             }
@@ -77,9 +78,9 @@ class Category extends My_Controller
     public function delete($id = 0) 
     {
         $data['category'] = $this->Category_Model->get_category_id(array('id' => $id));
-        $this->check_data($data['category'], 0);
+        $this->check_data($data['category'], 'categories');
         $fag = $this->Category_Model->delete((array)$id);
-        $fag = $this->fag_messge($fag, lang('category_delete_successful'), lang('category_delete_error'));
+        $fag = $this->fag_messge($fag, 0, lang('category_delete_successful'), lang('category_delete_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('categories');
     }

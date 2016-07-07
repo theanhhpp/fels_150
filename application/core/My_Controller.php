@@ -9,8 +9,11 @@ class My_Controller extends CI_Controller
         $this->lang->load('word', 'fels');
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
-        $this->authentication = $this->my_authentication->check();
+        $this->authentication = $this->my_authentication->check();        
+    }
 
+    public function check_authentication ()
+    {
         if (!isset($this->authentication) && count($this->authentication) == 0) {
             redirect('sessions/login');
         }
@@ -100,13 +103,13 @@ class My_Controller extends CI_Controller
                 'message' => lang('no_word'),
             ]; 
             $this->session->set_flashdata('message_flashdata', $fag);
-            redirect($redirect);          
+            redirect($redirect);
         } 
     }
 
-    public function fag_messge($fag, $message_successful, $message_error)
+    public function fag_messge($fag, $check, $message_successful, $message_error)
     {
-        if ($fag > 0) {
+        if ($fag > 0 || $check > 0) {
             $fag_messge = [
                 'type' => 'successful',
                 'message' => $message_successful,
@@ -118,5 +121,39 @@ class My_Controller extends CI_Controller
             ];
         }
         return $fag_messge;
+    }
+    public function is_admin($user) 
+    {
+        if($user['admin'] == 1) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public function template($template1, $template2) 
+    {
+        if ($this->is_admin($this->authentication)) {
+            $template = $template1;
+        } else {
+            $template = $template2;
+        }
+        return $template;
+    }
+
+    public function check_action($controller, $action)
+    {
+        $data = [
+            'category' => ['add', 'edit', 'delete'],
+            'lesson' => ['add', 'edit', 'delete'],
+            'word' => ['add', 'edit', 'delete'],
+            'lesson_word' => ['add', 'delete'],
+        ];
+        if (!$this->is_admin($this->authentication)) {
+            
+            if (in_array($action, $data[$controller])) {
+                redirect ('users');
+            }
+        }       
+        return NULL;
     }
 }

@@ -10,6 +10,8 @@ class Word extends My_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('category', 'fels');
+        $this->check_authentication();
+        $this->check_action('category', $this->router->fetch_method());
     }
 
     public function index($page = 1) 
@@ -28,8 +30,8 @@ class Word extends My_Controller
             $data['list_word'] = $this->Word_Model->view(($page*$config['per_page']), $config['per_page'], NULL);
         }
         $data['title'] = lang('title_word');
-        $data['template'] = 'word/index';
         $data['authentication'] = $this->authentication;
+        $data['template'] = $this->template('word/index', 'user/word');
         $this->load->view('layout/index', $data);
     }
 
@@ -56,7 +58,7 @@ class Word extends My_Controller
                 $fag = $this->Word_Model->insert($array);
                 $checkbox = $this->input->post('checkbox');
                 $check = $this->set_word_answer(NULL, $checkbox, $fag['insert_id'], 0);
-                $fag = $this->fag_messge($fag, lang('add_word_successful'), lang('add_word_error'));
+                $fag = $this->fag_messge($fag, 0,lang('add_word_successful'), lang('add_word_error'));
                 $this->session->set_flashdata('message_flashdata',$fag);
                 redirect('words');	
             }
@@ -85,17 +87,7 @@ class Word extends My_Controller
                 $fag = $this->Word_Model->update($id, $array);
                 $checkbox = $this->input->post('checkbox');
                 $check = $this->set_word_answer($list_word_answer, $checkbox, $id, 1);
-                if ($fag > 0 || $check > 0) {
-                    $fag = array (
-                        'type' => 'successful',
-                        'message' => lang('edit_word_successful'),
-                    );
-                } else {
-                    $fag = array (
-                        'type' => 'error',
-                        'message' => lang('edit_word_error'),
-                    );
-                }
+                $fag = $this->fag_messge($fag, $check, lang('edit_word_successful'), lang('edit_word_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('words');
             }
@@ -114,7 +106,7 @@ class Word extends My_Controller
         $list_word_answer = $this->Word_Answer_Model->get_answer_id(['word_id' => $word['id']]);
         $fag = $this->Word_Model->delete((array)$id);
         $fag = $this->Word_Answer_Model->delete($list_word_answer);
-        $fag = $this->fag_messge($fag, lang('delete_word_successful'), lang('delete_word_error'));
+        $fag = $this->fag_messge($fag, 0, lang('delete_word_successful'), lang('delete_word_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('words');
     }

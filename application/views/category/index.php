@@ -1,4 +1,4 @@
-<h2>Danh sách category</h2>
+<h2><?= lang('title_categories'); ?></h2>
 <?php
     $message_flashdata = $this->session->flashdata('message_flashdata');;
 
