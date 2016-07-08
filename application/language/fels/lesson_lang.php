@@ -22,3 +22,4 @@ $lang['delete_lesson_error'] = 'Delete Lesson fail!';
 $lang['delete'] = 'Delete';
 $lang['edit'] = 'Edit';
 $lang['back'] = 'Back';
+$lang['start_lesson'] = 'Start Lesson';

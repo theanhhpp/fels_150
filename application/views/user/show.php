@@ -8,7 +8,6 @@
     echo '<p><b>Locale : </b>' . $userData['locale'].'</p>';
     echo '<p><b>FB Profile Link : </b>' . $userData['profile_url'].'</p>';
     echo '<p><b>You are login with : </b>Facebook</p>';
-    echo '<p><b><a href="'.base_url().'index.php/sessions/logout">Logout</a></b></p>';
     echo '</div>';
     ?>
 </div>

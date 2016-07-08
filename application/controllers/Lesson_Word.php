@@ -10,6 +10,8 @@ class Lesson_Word extends My_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('category', 'fels');
+        $this->check_authentication();
+        $this->check_action('lesson_word', $this->router->fetch_method());
     }
 
     public function add() 
@@ -25,7 +27,7 @@ class Lesson_Word extends My_Controller
                 $array = ['lesson_id' => $data['lesson']['id'], 'word_id' => $value];
                 $fag = $this->Lesson_Word_Model->insert($array);   
             }
-            $fag = $this->fag_messge($fag, lang('edit_word_successful'), lang('add_word_error'));
+            $fag = $this->fag_messge($fag, 0, lang('edit_word_successful'), lang('add_word_error'));
             $this->session->set_flashdata('message_flashdata',$fag);
             redirect('lesson/show/'.$lesson_id);	
         }
@@ -36,13 +38,14 @@ class Lesson_Word extends My_Controller
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
     }
+    
     public function delete($id) 
     {
         $id = (int) $id;
         $lesson_word = $this->Lesson_Word_Model->get(['id' => $id]);
         $this->check_data($lesson_word, 'lesson/show/'. $lesson_word[0]['lesson_id']);
         $fag = $this->Lesson_Word_Model->delete($id);
-        $fag = $this->fag_messge($fag, lang('delete_lesson_successful'), lang('delete_lesson_error'));
+        $fag = $this->fag_messge($fag, 0, lang('delete_lesson_successful'), lang('delete_lesson_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('lesson/show/'.$lesson_word[0]['lesson_id']);
     }

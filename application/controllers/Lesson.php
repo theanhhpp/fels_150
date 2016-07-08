@@ -10,6 +10,8 @@ class Lesson extends My_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('category', 'fels');
+        $this->check_authentication();
+        $this->check_action('lesson', $this->router->fetch_method());
     }
 
     public function index($page = 1) 
@@ -28,14 +30,14 @@ class Lesson extends My_Controller
             $data['list_lesson'] = $this->Lesson_Model->view(($page*$config['per_page']), $config['per_page']);
         } 
         $data['title'] = lang('title_lesson');
-        $data['template'] = 'lesson/index';
+        $data['template'] = $this->template('lesson/index', 'user/lesson'); 
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
     }
 
     public function show($id) 
     {
-        if(!isset($id) || count($id) == 0) {
+        if (!isset($id) || count($id) == 0) {
             redirect('lessons');
         }
         $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
@@ -52,12 +54,12 @@ class Lesson extends My_Controller
                 $i++;   
             }            
         }
-        if(isset($list_word) && count($list_word)) {
+        if (isset($list_word) && count($list_word)) {
             $data['list_word'] = $list_word;
         }
         $data['title'] = lang('lesson');
-        $data['template'] = 'lesson/show';
         $data['authentication'] = $this->authentication;
+        $data['template'] = $this->template('lesson/show', 'user/show_lesson');     
         $this->load->view('layout/index', $data);
     }
 
@@ -66,13 +68,13 @@ class Lesson extends My_Controller
         if ($this->input->post('add_lesson')) {
             $this->set_rules();
 
-            if($this->form_validation->run()) {
-                $array = array(
+            if ($this->form_validation->run()) {
+                $array = [
                     'category_id' => $this->input->post('category'),
                     'name' => $this->input->post('name'),
-                );
+                ];
                 $fag = $this->Lesson_Model->insert($array);
-                $fag = $this->fag_messge($fag, lang('add_lesson_successful'), lang('add_lesson_error'));
+                $fag = $this->fag_messge($fag, 0,lang('add_lesson_successful'), lang('add_lesson_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('lessons');	
             }
@@ -92,13 +94,13 @@ class Lesson extends My_Controller
         if ($this->input->post('edit_lesson')) {
             $this->set_rules();
 
-            if($this->form_validation->run()) {
-                $array = array(
+            if ($this->form_validation->run()) {
+                $array = [
                     'category_id' => $this->input->post('category'),
                     'name' => $this->input->post('name'),
-                );
+                ];
                 $fag = $this->Lesson_Model->update($id, $array);
-                $fag = $this->fag_messge($fag, lang('edit_word_successful'), lang('add_word_error'));
+                $fag = $this->fag_messge($fag, 0, lang('edit_word_successful'), lang('add_word_error'));
                 $this->session->set_flashdata('message_flashdata', $fag);
                 redirect('lessons');
             }
@@ -116,7 +118,7 @@ class Lesson extends My_Controller
         $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
         $this->check_data($data['lesson'], 'lessons');
         $fag = $this->Lesson_Model->delete((array) $id);
-        $fag = $this->fag_messge($fag, lang('delete_lesson_successful'), lang('delete_lesson_error'));
+        $fag = $this->fag_messge($fag, 0, lang('delete_lesson_successful'), lang('delete_lesson_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('lessons');
     }
