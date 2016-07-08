@@ -29,3 +29,5 @@ $lang['choose_lesson'] = '-- Choose Lesson --';
 $lang['check_rule_category'] = 'Must choose Category !';
 $lang['test'] = 'Test';
 $lang['submit'] = 'Submit';
+$lang['id_word'] = 'Word ID';
+

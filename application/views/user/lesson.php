@@ -24,7 +24,7 @@
                             <?php $i ++; 
                         }
                     } else {
-                        echo '<tr><td colspan="7">'.lang('no_data').'</td></tr>';    
+                        echo '<tr><td colspan="7">' . lang('no_data') . '</td></tr>';    
                     } ?>
                 </tbody>
             </table>

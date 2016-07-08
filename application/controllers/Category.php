@@ -6,8 +6,14 @@ class Category extends My_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->lang->load('home', 'fels');
+        $this->lang->load('session', 'fels');
+        $this->lang->load('category', 'fels');
+        $this->lang->load('lesson', 'fels');
         $this->check_authentication();
         $this->check_action('category', $this->router->fetch_method());
+        $this->authentication = $this->my_authentication->check();
+
     }
 
     public function index($page = 1) 
@@ -76,7 +82,9 @@ class Category extends My_Controller
     {
         $data['category'] = $this->Category_Model->get_category_id(array('id' => $id));
         $this->check_data($data['category'], 'categories');
-        $fag = $this->Category_Model->delete((array)$id);
+        $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
+        $this->check_data($data['category'], 0);
+        $this->Category_Model->delete((array)$id);
         $fag = $this->fag_messge($fag, 0, lang('category_delete_successful'), lang('category_delete_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
         redirect('categories');
@@ -84,8 +92,14 @@ class Category extends My_Controller
 
     public function show($id = 0)
     {
-       $data['category'] = $this->Category_Model->get_category_id(array('id' => $id));
-        $data['meta_title'] = lang('title_show_category');
+        if(!isset($id) || count($id) == 0) {
+            redirect('lessons');
+        }
+        $data['lesson'] = $this->Lesson_Model->get(['category_id' => $id]);
+        $data['category'] = $this->Category_Model->get_category_id(array('id' => $id));
+        $data['lesson_of_category'] = $this->Category_Model->show_lesson_of_category($id);
+        $data['word_of_category'] = $this->Category_Model->show_word_of_category($id);
+        $data['title'] = lang('category');
         $data['template'] = 'category/show';
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
