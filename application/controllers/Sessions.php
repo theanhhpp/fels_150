@@ -6,9 +6,6 @@ class Sessions extends My_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('word', 'fels');
     }
 
     public function sign_up()
@@ -36,7 +33,7 @@ class Sessions extends My_Controller
                 $user['http_user_agent'] = $http_user_agent;
                 $this->session->set_userdata('authentication', json_encode($user));
                 $this->session->set_flashdata('message_flashdata', $fag);
-                redirect('users');     
+                redirect('');     
             }
         }
         $data['title'] = lang('title_sign_up');   
@@ -49,7 +46,7 @@ class Sessions extends My_Controller
         $data = $this->Auth_Model->auth();
 
         if (isset($this->authentication) && count($this->authentication) > 0) {
-            redirect('users');
+            redirect('');
         }
 
         if ($this->input->post('login')) {
@@ -68,7 +65,7 @@ class Sessions extends My_Controller
                     'message' => lang('login_successful'),
                 );
                 $this->session->set_flashdata('message_flashdata', $fag1);
-                redirect('users');                     
+                redirect('');                     
             }
         }
         $data['title'] = lang('title_sign_in'); 

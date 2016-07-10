@@ -6,15 +6,24 @@ class User extends My_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('user', 'fels');
-        $this->lang->load('category', 'fels');
         $this->check_authentication();
+        $this->check_action('user', $this->router->fetch_method());
     }
 
-    public function index()
+    public function index($page = 1)
     {
+        $total_rows = $this->User_Model->total();
+        $config = $this->my_paginationlib->_Pagination('user/index', $total_rows);
+        $this->pagination->initialize($config); 
+        $data['list_pagination'] = $this->pagination->create_links();
+        $total_page = ceil($config['total_rows'] / $config['per_page']); //ceil lấy phần nguyên
+        $page = ($page > $total_page) ? $total_page : $page ;
+        $page = ($page < 1) ? 1 : $page ;
+        $page = $page - 1;
+
+        if ($config['per_page'] > 0) {
+            $data['list_user'] = $this->User_Model->view(($page*$config['per_page']), $config['per_page']);
+        } 
         $data['template'] = 'user/index';
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
@@ -33,19 +42,49 @@ class User extends My_Controller
                     'password' => md5($this->input->post('password')),
                 );
                 $fag = $this->User_Model->update($array, array('id' => $this->authentication['id']));
-                $fag = $this->fag_messge($fag, lang('update_successful'), lang('update_error'));
+                $fag = $this->fag_messge($fag, 0, lang('update_successful'), lang('update_error'));
                 $email =  $this->input->post('email');
                 $user = $this->User_Model->get(array('email' => $email));
                 $this->session->set_userdata('authentication', json_encode($user));
                 $this->session->set_flashdata('message_flashdata', $fag);
-                redirect('users');     
+                redirect('');     
             }
         }
 
-        $data['title_edit'] = lang('title_edit');
+        $data['title'] = lang('title_edit');
         $data['authentication'] = $this->authentication;
         $data['template'] = 'user/edit';
         $this->load->view('layout/index', $data);
+    }
+
+    public function show($id =1)
+    {
+        $per_page = 5;
+        $data['list_result'] = $this->Result_Model->view(0, $per_page, ['user_id' => $id]);
+        $data['title'] = lang('title_show');
+        $data['template'] = 'user/profile';
+        $data['authentication'] = $this->authentication;
+        $data['user'] = $this->User_Model->get(['id' => $id]);
+        $this->load->view('layout/index', $data);
+    }
+
+    public function delete($id = 0) 
+    {
+        $data['user'] = $this->User_Model->get(['id' => $id]);
+        $this->check_data($data['user'], 'users');
+        $fag = $this->User_Model->delete((array) $id);
+        $fag = $this->fag_messge($fag, 0, lang('delete_user_successful'), lang('delete_user_error'));
+        $this->session->set_flashdata('message_flashdata', $fag);
+        redirect('users');
+    }
+
+    public function getAll()
+    {
+        $per_page = 5;
+        $page = $this->input->get('page');
+        $id = $this->input->get('id');
+        $data['list_result']= $this->Result_Model->view(0, $per_page * $page, ['user_id' => $id]);
+        $this->load->view('user/result', $data);
     }
 
     public function set_rules() 

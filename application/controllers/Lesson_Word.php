@@ -6,10 +6,6 @@ class Lesson_Word extends My_Controller
     public function __construct() 
     {
         parent::__construct();
-        $this->lang->load('lesson', 'fels');
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('category', 'fels');
         $this->check_authentication();
         $this->check_action('lesson_word', $this->router->fetch_method());
     }

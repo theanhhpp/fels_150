@@ -9,6 +9,9 @@ class My_Controller extends CI_Controller
         $this->lang->load('word', 'fels');
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
+        $this->lang->load('category', 'fels');
+        $this->lang->load('lesson', 'fels');
+        $this->lang->load('user', 'fels');
         $this->authentication = $this->my_authentication->check();        
     }
 
@@ -100,7 +103,7 @@ class My_Controller extends CI_Controller
         if (!isset($data) || count($data) == 0) {
             $fag = [
                 'type' => 'error',
-                'message' => lang('no_word'),
+                'message' => lang('no_data'),
             ]; 
             $this->session->set_flashdata('message_flashdata', $fag);
             redirect($redirect);
@@ -147,11 +150,12 @@ class My_Controller extends CI_Controller
             'lesson' => ['add', 'edit', 'delete'],
             'word' => ['add', 'edit', 'delete'],
             'lesson_word' => ['add', 'delete'],
+            'user' => ['delete'],
         ];
         if (!$this->is_admin($this->authentication)) {
             
             if (in_array($action, $data[$controller])) {
-                redirect ('users');
+                redirect ('');
             }
         }       
         return NULL;

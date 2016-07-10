@@ -6,9 +6,6 @@ class Category extends My_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('category', 'fels');
         $this->check_authentication();
         $this->check_action('category', $this->router->fetch_method());
     }
@@ -25,9 +22,9 @@ class Category extends My_Controller
         $page = $page - 1;  
 
         if ($config['per_page'] > 0) {
-            $data['list_category'] = $fag = $this->Category_Model->view_category(($page * $config['per_page']), $config['per_page']);
+            $data['list_category'] = $this->Category_Model->view_category(($page * $config['per_page']), $config['per_page']);
         }   
-        $data['meta_title'] = lang('meta_title');
+        $data['title'] = lang('meta_title');
         $data['active'] = "category";
         $data['template'] = $this->template('category/index', 'user/category'); 
         $data['authentication'] = $this->authentication;

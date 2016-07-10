@@ -44,10 +44,21 @@ class User_Model extends CI_Model
         return $this->db->get()->row_array();
     }
 
+    public function view($start, $limit) 
+    {
+        return $this->db->select('*')->from(self::TABLE)->order_by(self::TABLE. '.id ASC')->limit($limit, $start)->get()->result_array();  
+    }
+
     public function update($param_data = NULL, $param_where = NULL) 
     {            
         $this->db->where($param_where);
         $this->db->update(self::TABLE, $param_data);  
+        return $this->db->affected_rows();
+    }
+
+    public function delete($checkbox = NULL) 
+    {            
+        $this->db->where_in('id', $checkbox)->delete(self::TABLE); 
         return $this->db->affected_rows();
     }
 }

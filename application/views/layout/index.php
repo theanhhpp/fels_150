@@ -24,29 +24,54 @@
 <body>
     <div class="container">
         <div class="header clearfix">
-            <nav>
-                <ul class="nav nav-pills pull-right">
-                    <li role="presentation">
-                        <a href="users"><?= lang('home'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
-                    </li>
-                      <li role="presentation">
-                        <a href="lessons"><?= lang('all_lessons'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="categories"><?= lang('title_categories'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="words"><?= lang('title_word'); ?></a>
-                    </li>
-                    <li role="presentation">
-                        <a href="sessions/logout" class="delete"><?= lang('sign_out'); ?></a>
-                    </li>
-                </ul>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href=""><?= lang('name_project'); ?></a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href=""><?= lang('home'); ?></a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li role="presentation">
+                                <a href="users"><?= lang('users'); ?></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="lessons"><?= lang('all_lessons'); ?></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="categories"><?= lang('title_categories'); ?></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="words"><?= lang('title_word'); ?></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= lang('title_show'); ?> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li role="presentation">
+                                        <a href="user/show/<?= $authentication['id']; ?>"><?= lang('profile'); ?></a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="user/edit/<?= $authentication['id']; ?>"><?= lang('setting'); ?></a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="sessions/logout" class="delete"><?= lang('sign_out'); ?></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
             </nav>
-            <h3 class="text-muted"><?= lang('name_project'); ?></h3>
         </div>
 
         <?php

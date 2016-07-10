@@ -6,10 +6,6 @@ class Word extends My_Controller
     public function __construct() 
     {
         parent::__construct();
-        $this->lang->load('word', 'fels');
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('category', 'fels');
         $this->check_authentication();
         $this->check_action('category', $this->router->fetch_method());
     }
@@ -18,7 +14,7 @@ class Word extends My_Controller
     {
         $this->_action();
         $total_rows = $this->Word_Model->total();
-        $config = $this->my_paginationlib->_Pagination('index.php/word/index', $total_rows);
+        $config = $this->my_paginationlib->_Pagination('word/index', $total_rows);
         $this->pagination->initialize($config); 
         $data['list_pagination'] = $this->pagination->create_links();
         $total_page = ceil($config['total_rows'] / $config['per_page']); //ceil lấy phần nguyên
