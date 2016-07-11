@@ -1,11 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sessions extends My_Controller 
+class Sessions extends CI_Controller 
 {
     public function __construct()
     {
         parent::__construct();
+        $this->lang->load('home', 'fels');
+        $this->lang->load('session', 'fels');
+        $this->lang->load('word', 'fels');
+        $this->authentication = $this->my_authentication->check();
     }
 
     public function sign_up()
@@ -164,10 +168,7 @@ class Sessions extends My_Controller
                 $data['authUrlfb'] = $facebook->getLoginUrl(array('redirect_uri'=>$redirectUrl, 'scope'=> $fbPermissions));
             }
         }
-        $data['title'] = lang('title_lesson');
-        $data['template'] = 'user/show';
-        $data['authentication'] = $this->authentication;
-        $this->load->view('layout/index', $data);
+        $this->load->view('user/show', $data);
     }
     
     public function authentication($password = '') 
@@ -186,5 +187,29 @@ class Sessions extends My_Controller
             return FALSE;
         }
         return TRUE;
+    }
+
+    public function checkpassword($password_confirmation = '') 
+    {
+        $password = $this->input->post('password');
+        if ($password != $password_confirmation) {
+            $this->form_validation->set_message('checkpassword', lang('check_password'));
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public function checkemail($email = '') 
+    {
+        $user = $this->User_Model->get(array('email' => $email));
+        if (isset($user) && count($user)) {
+            if ($user == $this->authentication) {
+                return TRUE;        
+            } else {
+                $this->form_validation->set_message('checkemail', lang('check_email'));
+                return FALSE;          
+            }  
+        }
+        return TRUE;    
     }
 }

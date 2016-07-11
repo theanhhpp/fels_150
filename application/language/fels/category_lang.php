@@ -22,3 +22,4 @@ $lang['category_delete_successful'] = 'Xóa category thành công';
 $lang['category_delete_error'] = 'Xóa category thất bại';
 $lang['title_show_category'] = 'Show 1 Category';
 $lang['number'] = 'Number';
+$lang['title_lessons_words_of_category'] = 'Danh sách Lesson và Word của Category';

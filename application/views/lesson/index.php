@@ -1,18 +1,18 @@
 <h2 class=""><?= lang('title_lesson'); ?></h2>
-<?php
-    $message_flashdata = $this->session->flashdata('message_flashdata');
-    if(isset($message_flashdata) && count($message_flashdata)) {
-        if($message_flashdata['type'] == 'successful') {
-        ?>
-            <p style="color:#5cb85c;"><?php echo $message_flashdata['message'];?></p>
+    <?php
+        $message_flashdata = $this->session->flashdata('message_flashdata');
+        if(isset($message_flashdata) && count($message_flashdata)) {
+            if($message_flashdata['type'] == 'successful') {
+            ?>
+                <p style="color:#5cb85c;"><?= $message_flashdata['message'];?></p>
+                <?php
+            } else if($message_flashdata['type'] == 'error') {
+            ?>
+                <p style="color:red;"><?= $message_flashdata['message'];?></p>
             <?php
-        } else if($message_flashdata['type'] == 'error') {
-        ?>
-            <p style="color:red;"><?php echo $message_flashdata['message'];?></p>
-        <?php
+        }
     }
-}
-?>
+    ?>
 <div class="container row">
     <form method="post" action="">
         <div class="table-responsive">
@@ -47,7 +47,7 @@
                             </tr>
                         <?php }
                     } else {
-                        echo '<tr><td colspan="7">'.lang('no_data').'</td></tr>';    
+                        echo '<tr><td colspan="7">' . lang('no_data') . '</td></tr>';    
                     } ?>
                 </tbody>
             </table>

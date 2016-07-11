@@ -5,9 +5,9 @@
         if(isset($message_flashdata) && count($message_flashdata)) {
 
             if($message_flashdata['type'] == 'successful') { ?>
-                <p style="color:#5cb85c;"><?php echo $message_flashdata['message'];?></p>
+                <p style="color:#5cb85c;"><?= $message_flashdata['message'];?></p>
             <?php } else if($message_flashdata['type'] == 'error') { ?>
-                <p style="color:red;"><?php echo $message_flashdata['message'];?></p>
+                <p style="color:red;"><?= $message_flashdata['message'];?></p>
             <?php }
         } 
     ?>
