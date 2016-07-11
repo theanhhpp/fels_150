@@ -18,7 +18,6 @@ $lang['password_fail'] = 'Password không đúng !';
 $lang['login_successful'] = 'Đăng nhập thành công !';
 $lang['successful'] = 'Đăng kí thành công !';
 $lang['error'] = 'Đăng kí thất bại !';
-$lang['update_successful'] = 'Cập nhật dữ liệu thành công!';
 $lang['update_error'] = 'Cập nhật dữ liệu thất bại!';
 $lang['update_successful'] = 'Cập nhật dữ liệu thành công!';
 $lang['remember'] = 'Remember me';

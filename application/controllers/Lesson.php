@@ -6,10 +6,6 @@ class Lesson extends My_Controller
     public function __construct() 
     {
         parent::__construct();
-        $this->lang->load('lesson', 'fels');
-        $this->lang->load('home', 'fels');
-        $this->lang->load('session', 'fels');
-        $this->lang->load('category', 'fels');
         $this->check_authentication();
         $this->check_action('lesson', $this->router->fetch_method());
     }
@@ -18,7 +14,7 @@ class Lesson extends My_Controller
     {
         $this->_action();
         $total_rows = $this->Lesson_Model->total();
-        $config = $this->my_paginationlib->_Pagination('index.php/lesson/index', $total_rows);
+        $config = $this->my_paginationlib->_Pagination('lesson/index', $total_rows);
         $this->pagination->initialize($config); 
         $data['list_pagination'] = $this->pagination->create_links();
         $total_page = ceil($config['total_rows'] / $config['per_page']); //ceil lấy phần nguyên
@@ -42,7 +38,7 @@ class Lesson extends My_Controller
         }
         $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
         $data['category'] = $this->Category_Model->get_category_id(['id' => $data['lesson']['category_id']]);
-        $list_lesson_word = $this->Lesson_Word_Model->get(array('lesson_id' => $id));
+        $list_lesson_word = $this->Lesson_Word_Model->get(['lesson_id' => $id]);
         $i = 0;
         foreach ($list_lesson_word as $key => $value) {
             $word = $this->Word_Model->get_word(['id' => $value['word_id']]);
