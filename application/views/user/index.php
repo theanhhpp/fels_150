@@ -14,15 +14,17 @@
                 } ?>
             <?php
             $i = 1;
-                foreach ($list_user as $key => $value) { ?>
-                    <p>
-                        <?= $i; ?>. 
-                        <a href= "user/show/<?= $value['id']; ?> "><?= $value['first_name']; ?> <?= $value['last_name']; ?></a>
-                        <?php if ($authentication['admin'] == 1) { ?>
-                            <a class = "delete"  href= "user/delete/<?= $value['id']; ?>"><?= lang('delete'); ?></a>
-                        <?php } ?>
-                    </p>
-                    <?php $i ++;
+                if(isset($list_user) && count($list_user)) {
+                    foreach ($list_user as $key => $value) { ?>
+                        <p>
+                            <?= $i; ?>. 
+                            <a href= "user/show/<?= $value['id']; ?> "><?= $value['first_name']; ?> <?= $value['last_name']; ?></a>
+                            <?php if ($authentication['admin'] == 1) { ?>
+                                <a class = "delete"  href= "user/delete/<?= $value['id']; ?>"><?= lang('delete'); ?></a>
+                            <?php } ?>
+                        </p>
+                        <?php $i ++;
+                    }
                 }
             ?>
         </div>

@@ -30,8 +30,7 @@ class Category extends My_Controller
         if ($config['per_page'] > 0) {
             $data['list_category'] = $this->Category_Model->view_category(($page * $config['per_page']), $config['per_page']);
         }   
-        $data['title'] = lang('meta_title');
-        $data['active'] = "category";
+        $data['title'] = lang('title_categories');
         $data['template'] = $this->template('category/index', 'user/category'); 
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
