@@ -84,10 +84,10 @@ class Category extends My_Controller
         $this->check_data($data['category'], 'categories');
         $data['lesson'] = $this->Lesson_Model->get(['id' => $id]);
         $this->check_data($data['category'], 0);
-        $this->Category_Model->delete((array)$id);
+        $fag =  $this->Category_Model->delete((array)$id);
         $fag = $this->fag_messge($fag, 0, lang('category_delete_successful'), lang('category_delete_error'));
         $this->session->set_flashdata('message_flashdata', $fag);
-        redirect('categories');
+        header('Location:' . $this->input->get('redirect'));
     }
 
     public function show($id = 0)

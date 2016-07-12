@@ -27,6 +27,7 @@
                         <th><?= lang('created_at'); ?></th>
                         <th><?= lang('updated_at'); ?></th>
                         <th>ID</th>
+                        <th><?= lang('learn'); ?></th>
                         <th><?= lang('action'); ?></th>
                     </tr>
                 </thead>
@@ -42,6 +43,11 @@
                                 <td><?= $value['created_at']; ?></td>
                                 <td><?= $value['updated_at']; ?></td>
                                 <td><?= $value['word_id']; ?></td>
+                                <?php if($this->Learned_Word_Model->total(['word_id' => $value['word_id'],'user_id' => $this->authentication['id']]) == 0) { ?>
+                                    <td><a href="learned_word/learn/<?= $value['word_id']; ?>?redirect= <?= current_url(); ?>"><?= lang('unlearn'); ?></a></td>
+                                <?php } else { ?>
+                                    <td><?= lang('learned'); ?></td>
+                                <?php } ?>
                                 <td>
                                     <a href= "word/edit/<?= $value['word_id'];?>"><?= lang('edit'); ?></a> | 
                                     <a class = "delete"  href= "word/delete/<?= $value['word_id']; ?>"><?= lang('delete'); ?></a>
@@ -49,7 +55,7 @@
                             </tr>
                         <?php }
                     } else {
-                        echo '<tr><td colspan="7">'. lang('no_data') .'</td></tr>';    
+                        echo '<tr><td colspan="8">' . lang('no_data') . '</td></tr>';    
                     } ?>
                 </tbody>
             </table>
