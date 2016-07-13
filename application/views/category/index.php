@@ -42,8 +42,8 @@
                                 <td><?= $value['created_at']; ?></td>
                                 <td><?= $value['updated_at']; ?></td>
                                 <td>
-                                    <a href= "category/edit/<?= $value['id'];?>"><?= lang('edit'); ?></a> | 
-                                    <a class = "delete"  href= "category/delete/<?= $value['id']; ?>"><?= lang('delete'); ?></a>
+                                    <a href= "category/edit/<?= $value['id']; ?>"><?= lang('edit'); ?></a> | 
+                                    <a class = "delete"  href= "category/delete/<?= $value['id']; ?>?redirect= <?= current_url(); ?>"><?= lang('delete'); ?></a>
                                 </td>
                             </tr>
                         <?php

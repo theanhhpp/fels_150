@@ -30,4 +30,6 @@ $lang['check_rule_category'] = 'Must choose Category !';
 $lang['test'] = 'Test';
 $lang['submit'] = 'Submit';
 $lang['id_word'] = 'Word ID';
-
+$lang['learn'] = 'Learn';
+$lang['learned'] = 'Leaned';
+$lang['unlearn'] = 'Learn';

@@ -46,15 +46,20 @@
                         <tr>
                             <th><?= lang('id_word'); ?></th>
                             <th><?= lang('word'); ?></th>
+                            <th><?= lang('learn'); ?></th>
                         </tr>
                     </thead>
                         <?php
                             if(isset($word_of_category) && count($word_of_category)) {
-                                foreach ($word_of_category as $key => $value) {
-                        ?>
+                                foreach ($word_of_category as $key => $value) { ?>
                                     <tr>
                                         <td><a href = "word/show/<?= $value['id'];?>"> <?= $value['id'];?></a></td>
                                         <td><a href = "word/show/<?= $value['id'];?>"> <?= $value['word_content'];?></a></td>
+                                        <?php if($this->Learned_Word_Model->total(['word_id' => $value['id'],'user_id' => $this->authentication['id']]) == 0) { ?>
+                                        <td><a href="learned_word/learn/<?= $value['id']; ?>?redirect= <?= current_url(); ?>"><?= lang('unlearn'); ?></a></td>
+                                        <?php } else { ?>
+                                        <td><?= lang('learned'); ?></td>
+                                        <?php } ?>
                                     </tr>
                                 <?php
                                 }
