@@ -23,7 +23,8 @@ class User extends My_Controller
 
         if ($config['per_page'] > 0) {
             $data['list_user'] = $this->User_Model->view(($page*$config['per_page']), $config['per_page']);
-        } 
+        }
+        $data['title'] = lang('users');
         $data['template'] = 'user/index';
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
@@ -57,12 +58,40 @@ class User extends My_Controller
         $this->load->view('layout/index', $data);
     }
 
-    public function show($id =1)
+    public function show($id = 1 , $aciton = NULL, $page = 1)
     {
-        $per_page = 5;
-        $data['list_result'] = $this->Result_Model->view(0, $per_page, ['user_id' => $id]);
-        $data['title'] = lang('title_show');
-        $data['template'] = 'user/profile';
+        $id = (int) $id;
+        if ($aciton == 'following' || $aciton == 'followers') {
+
+            if ($aciton == 'following') {
+                $total_rows = $this->Relationship_Model->count_followings($id);
+                $config = $this->my_paginationlib->_Pagination('user/show/' . $id . '/following', $total_rows);
+            } elseif ($aciton == 'followers') {
+                $total_rows = $this->Relationship_Model->count_followers($id);
+                $config = $this->my_paginationlib->_Pagination('user/show/' . $id . '/followers', $total_rows);
+            }           
+            $this->pagination->initialize($config); 
+            $data['list_pagination'] = $this->pagination->create_links();
+            $total_page = ceil($config['total_rows'] / $config['per_page']);
+            $page = ($page > $total_page) ? $total_page : $page ;
+            $page = ($page < 1) ? 1 : $page ;
+            $page = $page - 1;
+
+            if ($config['per_page'] > 0) {
+                if ($aciton == 'followers') {
+                    $data['list_user'] = $this->Relationship_Model->followers($id, ($page*$config['per_page']), $config['per_page']);
+                } elseif ($aciton == 'following') {
+                    $data['list_user'] = $this->Relationship_Model->followings($id, ($page*$config['per_page']), $config['per_page']);
+                }
+            }
+            $data['title'] = lang('users');
+            $data['template'] = 'user/index';
+        } else {
+            $per_page = 5;
+            $data['list_result'] = $this->Result_Model->view(0, $per_page, ['user_id' => $id]);
+            $data['title'] = lang('title_show');
+            $data['template'] = 'user/profile';
+        }
         $data['authentication'] = $this->authentication;
         $data['user'] = $this->User_Model->get(['id' => $id]);
         $this->load->view('layout/index', $data);

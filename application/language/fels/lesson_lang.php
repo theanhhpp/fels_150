@@ -26,4 +26,3 @@ $lang['start_lesson'] = 'Start Lesson';
 $lang['result'] = 'Result';
 $lang['load_more'] = 'Load more';
 $lang['id_lesson'] = 'Lesson ID';
-

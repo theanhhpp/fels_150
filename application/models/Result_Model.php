@@ -22,11 +22,11 @@ class Result_Model extends CI_Model
         return $this->db->count_all_results();
     }
     
-    public function view($start, $limit,$param_where) 
+    public function view($start, $limit, $param_where) 
     {
-        $this->db->select(self::TABLE. '.id as result_id ,'.self::TABLE. '.result, lessons.name,' .self::TABLE. '.created_at,' .self::TABLE. '.updated_at')
-            ->from(self::TABLE)->join('lessons', self::TABLE. ' . lesson_id = lessons.id')
-            ->order_by(self::TABLE. '.id DESC')
+        $this->db->select(self::TABLE . '.id as result_id ,' . self::TABLE . '.user_id,' . self::TABLE . '.result, lessons.name,' . self::TABLE . '.created_at,' . self::TABLE . '.updated_at')
+            ->from(self::TABLE)->join('lessons', self::TABLE . ' . lesson_id = lessons.id')
+            ->order_by(self::TABLE . '.id DESC')
             ->limit($limit, $start);
 
         if(isset($param_where) && count($param_where)) {
@@ -57,5 +57,18 @@ class Result_Model extends CI_Model
     {            
         $this->db->where_in('id', $param_data)->delete(self::TABLE); 
         return $this->db->affected_rows();
-    } 
+    }
+
+    public function view_result_all($param_where, $start, $limit) 
+    {
+        return $this->db->select(self::TABLE . '.id as result_id ,' . self::TABLE . '.user_id,' . self::TABLE . '.result, lessons.name,' . self::TABLE . '.created_at,' . self::TABLE . '.updated_at')
+            ->from(self::TABLE)->join('lessons', self::TABLE . ' . lesson_id = lessons.id')
+            ->where_in('user_id' , $param_where)->order_by(self::TABLE . '.created_at DESC')
+            ->limit($limit, $start)->get()->result_array(); 
+    }
+
+    public function count_result_all($param_where) 
+    {
+        return $this->db->select('*')->from(self::TABLE)->where_in('user_id' , $param_where)->count_all_results(); 
+    }
 }
