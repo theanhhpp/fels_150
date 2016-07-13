@@ -24,11 +24,27 @@ class Lesson extends My_Controller
 
         if ($config['per_page'] > 0) {
             $data['list_lesson'] = $this->Lesson_Model->view(($page*$config['per_page']), $config['per_page']);
-        } 
+        }
+        $total_categories = $this->Category_Model->total();
+        $data['list_categories'] = $this->Category_Model->view_category(0, $total_categories);
         $data['title'] = lang('title_lesson');
         $data['template'] = $this->template('lesson/index', 'user/lesson'); 
         $data['authentication'] = $this->authentication;
         $this->load->view('layout/index', $data);
+    }
+
+    public function filter() 
+    {
+        $q = $this->input->get('q');
+        $total_rows = $this->Lesson_Model->total();
+        
+        if ($q == 'none') {
+            $data['list_lesson'] = $this->Lesson_Model->view(0, $total_rows);       
+        } else {
+            $data['list_lesson'] = $this->Lesson_Model->view(0, $total_rows, ['categories.name' => $q]);
+        }        
+        $data['authentication'] = $this->authentication;
+        $this->load->view($this->template('lesson/filter', 'user/filter_lesson'), $data);
     }
 
     public function show($id) 

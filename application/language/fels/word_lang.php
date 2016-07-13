@@ -33,3 +33,6 @@ $lang['id_word'] = 'Word ID';
 $lang['learn'] = 'Learn';
 $lang['learned'] = 'Leaned';
 $lang['unlearn'] = 'Learn';
+$lang['search'] = 'Search';
+$lang['the_lesson_will_submit_in'] = 'The lesson will submit in';
+$lang['minutes'] = 'minutes';

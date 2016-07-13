@@ -1,22 +1,40 @@
-<h2><?= lang('title_word'); ?></h2>
-<?php
-    $message_flashdata = $this->session->flashdata('message_flashdata');
-
-    if(isset($message_flashdata) && count($message_flashdata)) {
-
-        if($message_flashdata['type'] == 'successful') {
-        ?>
-            <p style="color:#5cb85c;"><?= $message_flashdata['message'];?></p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2><?= lang('title_word'); ?></h2>
             <?php
-        } else if($message_flashdata['type'] == 'error') {
-        ?>
-            <p style="color:red;"><?= $message_flashdata['message'];?></p>
-        <?php
-    }
-}
-?>
-<div class="container row">
-    <form method="post" action="">
+                $message_flashdata = $this->session->flashdata('message_flashdata');
+
+                if(isset($message_flashdata) && count($message_flashdata)) {
+
+                    if($message_flashdata['type'] == 'successful') { ?>
+                        <p style="color:#5cb85c;"><?= $message_flashdata['message'];?></p>
+                    <?php } else if($message_flashdata['type'] == 'error') { ?>
+                        <p style="color:red;"><?= $message_flashdata['message'];?></p>
+                    <?php }
+                }
+            ?>
+        </div>    
+        <div class="row col-sm-6" style="margin-bottom: 20px;">
+            <form method="post" action="" class="form-inline">
+                <div class="col-sm-5">
+                    <select class="form-control" name="customers" onchange="showCustomer(this.value, 'word/filter')">
+                        <option value="none"><?= lang('choose_catrgory')?></option>
+                        <?php if (isset($list_categories) && count($list_categories)) {
+                            foreach ($list_categories as $key => $value) { ?>
+                                <option value="<?= $value['name']?>"><?= $value['name']?></option>        
+                            <?php }              
+                        } ?>
+                    </select>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" id="txt1" onkeyup="showCustomer(this.value, 'word/search')">
+                    <button type="submit" class="btn btn-default"><?= lang('search'); ?></button>
+                </div>
+            </form> 
+        </div>      
+    </div>
+    <div class="row col-sm-12"  id="index">
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -64,10 +82,10 @@
             <a href="word/add" class="btn btn-default"><?= lang('title_add_word'); ?></a>
         </div>
         <div class="col-sm-7">
-            <input type="submit" class="btn btn-default delete" name="delete_more" value="<?= lang('delete'); ?>" /> 		
+            <input type="submit" class="btn btn-default delete" name="delete_more" value="<?= lang('delete'); ?>" />        
         </div>   
         <div class="col-sm-3">
             <?= isset($list_pagination) ? $list_pagination : ''; ?>    
-        </div>
-    </form>	
+        </div>        
+    </div>
 </div>

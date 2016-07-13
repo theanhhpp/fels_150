@@ -1,6 +1,20 @@
 <div class="container">
     <h2 class=""><?= lang('title_lesson'); ?></h2>
-    <div class="row col-sm-6">
+    <div class="row">
+        <div class="col-sm-3" style="margin-bottom: 20px;">
+            <form method="post" action="">
+                <select class="form-control" name="customers" onchange="showCustomer(this.value, 'lesson/filter')">
+                    <option value="none"><?= lang('choose_catrgory')?></option>
+                    <?php if (isset($list_categories) && count($list_categories)) {
+                        foreach ($list_categories as $key => $value) { ?>
+                            <option value="<?= $value['name']?>"><?= $value['name']?></option>        
+                        <?php }              
+                    } ?>
+                </select>
+            </form> 
+        </div>      
+    </div>
+    <div class="row col-sm-6" id="index">
         <div class="table-responsive">
             <table class="table">
                 <thead>

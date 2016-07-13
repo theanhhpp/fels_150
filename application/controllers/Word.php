@@ -25,10 +25,39 @@ class Word extends My_Controller
         if ($config['per_page'] > 0) {
             $data['list_word'] = $this->Word_Model->view(($page*$config['per_page']), $config['per_page'], NULL);
         }
+        $total_categories = $this->Category_Model->total();
+        $data['list_categories'] = $this->Category_Model->view_category(0, $total_categories);
         $data['title'] = lang('title_word');
         $data['authentication'] = $this->authentication;
         $data['template'] = $this->template('word/index', 'user/word');
         $this->load->view('layout/index', $data);
+    }
+
+    public function filter() 
+    {
+        $q = $this->input->get('q');
+        $total_rows = $this->Word_Model->total();
+        $list_word = $this->Word_Model->view(0, $total_rows);
+
+        if ($q == 'none') {
+            $data['list_word'] = $list_word ;       
+        } elseif ($q == 'learned') {
+            $data['list_word'] = $this->Word_Model->word_learn($list_word)['word_learned'];
+        } elseif ($q == 'learn') {
+            $data['list_word'] = $this->Word_Model->word_learn($list_word)['word_learn'];
+        } else {
+            $data['list_word'] = $this->Word_Model->view(0, $total_rows, ['categories.name' => $q]);
+        }  
+        $data['authentication'] = $this->authentication;
+        $this->load->view($this->template('word/filter', 'user/filter_word'), $data);
+    }
+
+    public function search() 
+    {
+        $q = $this->input->get('q');
+        $data['list_word'] = $this->Word_Model->search(['content' => $q]);
+        $data['authentication'] = $this->authentication;
+        $this->load->view($this->template('word/filter', 'user/filter_word'), $data);
     }
 
     public function show($id) 

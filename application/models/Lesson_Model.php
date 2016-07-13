@@ -13,14 +13,18 @@ class Lesson_Model extends CI_Model
         return $this->db->from(self::TABLE)->count_all_results();
     }
     
-    public function view($start, $limit) 
+    public function view($start, $limit, $param_where = NULL) 
     {
-        return $this->db->select(self::TABLE.'.id as lesson_id ,' .self::TABLE. '.name as lesson_name , category_id, 
+        $this->db->select(self::TABLE.'.id as lesson_id ,' .self::TABLE. '.name as lesson_name , category_id, 
             categories.name as category_name, '. self::TABLE. '.created_at,' .self::TABLE. '.updated_at')
             ->from(self::TABLE)->join('categories', self::TABLE. '.category_id = categories.id')
             ->order_by(self::TABLE. '.id DESC')
-            ->limit($limit, $start)
-            ->get()->result_array();  
+            ->limit($limit, $start);
+
+        if(isset($param_where) && count($param_where)) {
+            $this->db->where($param_where);
+        }
+        return $this->db->get()->result_array();  
     }
 
     public function insert($param_data = NULL) 
