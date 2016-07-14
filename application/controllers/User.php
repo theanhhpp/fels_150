@@ -87,7 +87,7 @@ class User extends My_Controller
             $data['title'] = lang('users');
             $data['template'] = 'user/index';
         } else {
-            $per_page = 5;
+            $per_page = 10;
             $data['list_result'] = $this->Result_Model->view(0, $per_page, ['user_id' => $id]);
             $data['title'] = lang('title_show');
             $data['template'] = 'user/profile';
@@ -109,9 +109,11 @@ class User extends My_Controller
 
     public function getAll()
     {
-        $per_page = 5;
+        $per_page = 10;
         $page = $this->input->get('page');
         $id = $this->input->get('id');
+        $data['user'] = $this->User_Model->get(['id' => $id]);
+        $data['total'] = $this->Result_Model->total(['user_id' => $id]);
         $data['list_result']= $this->Result_Model->view(0, $per_page * $page, ['user_id' => $id]);
         $this->load->view('user/result', $data);
     }

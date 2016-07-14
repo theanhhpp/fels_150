@@ -13,7 +13,8 @@
     <title>
         <?= isset($title) ? $title : lang('title_default'); ?>
     </title>
-
+    <script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->

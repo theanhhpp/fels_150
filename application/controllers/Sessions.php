@@ -9,7 +9,9 @@ class Sessions extends CI_Controller
         $this->lang->load('home', 'fels');
         $this->lang->load('session', 'fels');
         $this->lang->load('word', 'fels');
-        $this->authentication = $this->my_authentication->check();
+        $this->lang->load('category', 'fels');
+        $this->lang->load('lesson', 'fels');
+        $this->lang->load('user', 'fels');
     }
 
     public function sign_up()
@@ -112,16 +114,18 @@ class Sessions extends CI_Controller
             $userData['oauth_uid'] = $userProfile['id'];
             $userData['first_name'] = $userProfile['first_name'];
             $userData['last_name'] = $userProfile['last_name'];
+            $userData['email'] = $userProfile['email'];
             $userData['gender'] = $userProfile['gender'];
             $userData['locale'] = $userProfile['locale'];
             $userData['profile_url'] = 'https://www.facebook.com/'. $userProfile['id'];
             $userData['picture_url'] = $userProfile['picture']['data']['url'];
+            $http_user_agent = $_SERVER['HTTP_USER_AGENT'];
+            $userData['http_user_agent'] = $http_user_agent;
             // Insert or update user data
             $userID = $this->User_Model->checkUser($userData);
 
             if (!empty($userID)) {
                 $data['userData'] = $userData;
-                $this->session->set_userdata('userData', $userData);
             }
         } else {
             // Google Client Configuration
@@ -150,17 +154,19 @@ class Sessions extends CI_Controller
                 $userData['oauth_uid'] = $userProfile['id'];
                 $userData['first_name'] = $userProfile['given_name'];
                 $userData['last_name'] = $userProfile['family_name'];
+                $userData['email'] = $userProfile['email'];
                 $userData['locale'] = $userProfile['locale'];
                 $userData['profile_url'] = $userProfile['link'];
                 $userData['picture_url'] = $userProfile['picture'];
+                $http_user_agent = $_SERVER['HTTP_USER_AGENT'];
+                $userData['http_user_agent'] = $http_user_agent;
                 // Insert or update user data
                 $userID = $this->User_Model->checkUser($userData);
                 
                 if (!empty($userID)) {
                     $data['userData'] = $userData;
-                    $this->session->set_userdata('userData', $userData);
                 } else {
-                   $data['userData'] = array();
+                    $data['userData'] = array();
                 }
             } else {
                 $data['authUrl'] = $gClient->createAuthUrl();
@@ -168,7 +174,11 @@ class Sessions extends CI_Controller
                 $data['authUrlfb'] = $facebook->getLoginUrl(array('redirect_uri'=>$redirectUrl, 'scope'=> $fbPermissions));
             }
         }
-        $this->load->view('user/show', $data);
+        $user = $this->User_Model->get(['oauth_provider' => $userData['oauth_provider']]);
+        $this->session->set_userdata('authentication', json_encode($user));
+        $data['authentication'] = $user;
+        $data['template'] = 'user/show';
+        $this->load->view('layout/index', $data);
     }
     
     public function authentication($password = '') 

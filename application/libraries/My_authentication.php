@@ -18,15 +18,19 @@ class My_authentication
             return NULL;
         }
         $authentication = json_decode($authentication, TRUE);
-        $user = $this->CI->User_Model->get(array(
-            'email' => $authentication['email'],
-            'password' => $authentication['password'],
-            'http_user_agent' => $authentication['http_user_agent']
-        ));
 
-        if (!isset($user) || count($user) == 0) {
-            $this->CI->session->unset_userdata('authentication');
-            return NULL;
+        if($authentication['oauth_provider'] == 'facebook' || $authentication['oauth_provider'] == 'google') {
+            $user = $this->CI->User_Model->get(['oauth_provider' => $authentication['oauth_provider']]);
+        } else {
+            $user = $this->CI->User_Model->get([
+                'email' => $authentication['email'],
+                'password' => $authentication['password'],
+                'http_user_agent' => $authentication['http_user_agent']
+            ]);
+            if (!isset($user) || count($user) == 0) {
+                $this->CI->session->unset_userdata('authentication');
+                return NULL;
+            }
         }
         return $user;
     }

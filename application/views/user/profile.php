@@ -48,11 +48,12 @@
                         $user = $this->User_Model->get(['id' => $value['user_id'] ]); ?>
                         <p><?= $user['first_name']; ?> <?= $user['last_name']; ?> <?= lang('lesson'); ?> : <?= $value['name']; ?> <?= lang('result'); ?> : <?= $value['result']?>
                         (<?= $value['updated_at']?>)</p>
-                    <?php } ?>        
+                    <?php } ?>
+                    <div class="col-sm-3">
+                        <input type="button" class = "btn btn-link" onclick="load_ajax()" value="<?= lang('load_more')?>"/>    
+                    </div>     
                 </div>
-                <div class="col-sm-3">
-                    <input type="button" class = "btn btn-link"onclick="load_ajax()" value="<?= lang('load_more')?>"/>    
-                </div>
+
             <?php } ?>
         </div>
     </div>

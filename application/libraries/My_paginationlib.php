@@ -4,7 +4,7 @@ class My_paginationlib
 {	
     public function _Pagination($base_url, $total_rows)
     {	
-        $config['per_page'] = 5;
+        $config['per_page'] = 15;
         $config['base_url'] = base_url().$base_url;
         $config['total_rows'] = $total_rows;
         $config['full_tag_open'] = '<ul class="pagination" style ="margin: 0 0;">';
