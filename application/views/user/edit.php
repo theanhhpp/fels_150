@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="row col-sm-5 col-sm-offset-4">   
-        <form class="form-signin" action="" method="post">
+    <div class="row col-sm-5 col-sm-offset-4">  
+        <form  class="form-signin" action="" enctype="multipart/form-data" method="post">
             <h3><b><?= lang('title_edit'); ?></b></h3>
             <?= validation_errors(); ?>
             <div class="form-group">
@@ -24,7 +24,7 @@
                 <input type="password" class="form-control" name="password_confirmation" placeholder="<?= lang('password_confirmation'); ?>" value="">
             </div>
             <div class="form-group">
-                <label for="exampleInputFile"><?= lang('avatar'); ?></label>
+                <label for="exampleInputFile"><?= lang('avatar'); ?></label>                
                 <input type="file" name="avatar" value="<?php echo set_value('avatar', ''); ?>">
             </div>
             <input type="submit" class="btn btn-default" name="edit" value="<?= lang('title_edit'); ?>" />

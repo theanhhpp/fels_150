@@ -1,11 +1,12 @@
 <div class="container">
     <div class="row">
-        <dir class="col-sm-4">
+        <dir class="col-sm-3">
             <div class="row">
-                <div class="col-sm-6">
-                    <p>ảnh</p>
+                <div class="col-sm-5">
+                   <p class="image"><img src="uploads/<?= $user['picture_url']; ?> " alt="" width="90" height="90"/></p>
+                   <p><?= lang('learned_word'); ?> <?= $this->Learned_Word_Model->total(['user_id' => $this->authentication['id']]) ;?> <?= lang('user_learn'); ?></p>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                     <p><?= $user['first_name']; ?> <?= $user['last_name']?></p>
                     <section class="stats">
                         <div class="stats">
@@ -40,7 +41,7 @@
                 </div>
             </div>
         </dir>
-        <div class="col-sm-8" >
+        <div class="col-sm-9" >
             <h2><b><?= lang('result'); ?></b></h2>    
             <?php if (isset($list_result) && count($list_result)) { ?>
                 <div id = "content">
@@ -52,13 +53,20 @@
                     <div class="col-sm-3">
                         <input type="button" class = "btn btn-link" onclick="load_ajax()" value="<?= lang('load_more')?>"/>    
                     </div>     
+                    <?php } ?>        
                 </div>
-
+        </div>
+        <div class="col-sm-9" >
+            <?php if (isset($word_same_date) && count($word_same_date)) { ?>
+                <div id = "content">
+                    <?php foreach ($word_same_date as $key => $value) {?>
+                       <p><?= lang('learned_word'); ?> <?= $value['number_word'] ?> <?= lang('user_learn'); ?> <?= lang('on_date'); ?> <?= $value['time']?></p>
+                    <?php } ?>                           
+                </div>
             <?php } ?>
         </div>
     </div>
 </div>
-
 <script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 <script language="javascript">
     var $page = 1;

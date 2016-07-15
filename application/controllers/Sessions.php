@@ -25,12 +25,21 @@ class Sessions extends CI_Controller
             $this->form_validation->set_error_delimiters('<div style="color:red">', '</div>');
 
             if ($this->form_validation->run()) {
-                $array = array(
+        
+                if (!$this->upload->do_upload('avatar')) {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->load->view('session/sign_up', $error);
+                } else {
+                    $pic_name =  $this->upload->data('file_name');
+                }
+
+                $array = [
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
                     'email' => $this->input->post('email'),
                     'password' => md5($this->input->post('password')),
-                );
+                    'picture_url' => $pic_name,
+                ];
                 $fag = $this->Session_Model->create($array);
                 $email =  $this->input->post('email');
                 $user = $this->User_Model->get(array('email' => $email));

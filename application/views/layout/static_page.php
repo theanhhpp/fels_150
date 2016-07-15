@@ -12,12 +12,17 @@
 ?>
 <div class="container">
     <div class="row">
-        <dir class="col-sm-4">
+        <dir class="col-sm-3">
             <div class="row">
-                <div class="col-sm-6">
-                    <p>ảnh</p>
+                <div class="col-sm-5">
+                    <p class="image"><img src="uploads/<?= $authentication['picture_url']; ?> " alt="" width="90" height="90"/></p>
+                    <p>
+                        <?= lang('learned_word'); ?> 
+                        <?= $this->Learned_Word_Model->total(['user_id' => $this->authentication['id']]) ;?>
+                        <?= lang('user_learn'); ?>
+                    </p>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7 ">
                     <p><?= $authentication['first_name']; ?> <?= $authentication['last_name']?></p>
                     <section class="stats">
                         <div class="stats">
@@ -38,7 +43,7 @@
                 </div>
             </div>
         </dir>
-        <div class="col-sm-8" >
+        <div class="col-sm-9" >
             <h2><b><?= lang('result'); ?></b></h2>    
             <?php if(isset($list_result) && count($list_result)) { ?>
                 <div id = "content">  

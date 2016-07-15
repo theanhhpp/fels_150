@@ -9,3 +9,6 @@ $lang['delete_user_successful'] = 'Delete user successful !';
 $lang['delete_user_error'] = 'Delete user fail !';
 $lang['following'] = 'following';
 $lang['followers'] = 'followers';
+$lang['learned_word'] = 'Đã Học';
+$lang['user_learn'] = 'Chữ';
+$lang['on_date'] = 'Vào Ngày';

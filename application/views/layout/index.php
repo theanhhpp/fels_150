@@ -56,7 +56,10 @@
                                 <a href="words"><?= lang('title_word'); ?></a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= lang('title_show'); ?> <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img src="uploads/<?= $authentication['picture_url']; ?> " alt="" width="20" height="20"/>
+                                    <span class="caret"></span>
+                                </a>
                                 <ul class="dropdown-menu">
                                     <li role="presentation">
                                         <a href="user/show/<?= $authentication['id']; ?>"><?= lang('profile'); ?></a>

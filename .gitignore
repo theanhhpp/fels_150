@@ -13,6 +13,7 @@ assets/js/bootstrap.min.js
 assets/js/npm.js
 assets/fonts/*
 assets/images/*
+uploads/*
 application/cache/*
 application/libraries/facebook-api-php-codexworld/*
 application/libraries/google-api-php-client/*

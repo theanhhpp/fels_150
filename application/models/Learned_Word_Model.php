@@ -22,4 +22,15 @@ class Learned_Word_Model extends CI_Model
         ];
         return $fag;
     }
+
+    public function word_same_date($id)
+    {
+        return $this->db->select('COUNT(' .self::TABLE. '.user_id) AS number_word, DATE(' .self::TABLE. '.created_at) AS time, words.category_id')
+            ->from(self::TABLE)
+            ->join('words', self::TABLE . '.word_id = words.id')
+            ->where(self::TABLE . '.user_id' , $id)
+            ->group_by('time')
+            ->order_by(self::TABLE . '.created_at DESC')
+            ->get()->result_array();
+    }
 }

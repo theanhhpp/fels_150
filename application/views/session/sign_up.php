@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row col-sm-5 col-sm-offset-4">   
-        <form class="form-signin" action="" method="post">
+        <form class="form-signin" action="" enctype="multipart/form-data" method="post">
             <h3><b><?= lang('title_sign_up'); ?></b></h3>
             <?= validation_errors(); ?>
             <div class="form-group">
